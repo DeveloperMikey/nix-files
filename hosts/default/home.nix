@@ -50,6 +50,7 @@
     pkgs.webcord-vencord
     pkgs.obs-studio
     pkgs.git
+    pkgs.git-credential-manager
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?
