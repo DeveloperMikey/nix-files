@@ -51,7 +51,9 @@
     pkgs.obs-studio
     pkgs.git
     pkgs.git-credential-manager
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    pkgs.p7zip
+    pkgs.lxappearance-gtk2
+        # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
@@ -109,6 +111,22 @@
     ".config/alacritty" = {
       source = ../../dotfiles/alacritty;
     };
+  };
+
+
+  gtk.enable = true;
+  gtk.cursorTheme = {
+    package = pkgs.capitaine-cursors-themed;
+    name = "Capitaine Cursors (Gruvbox)";
+    size = 16;
+  };
+  gtk.iconTheme = {
+    package = pkgs.gruvbox-dark-icons-gtk;
+    name = "oomox-gruvbox-dark";
+  };
+  gtk.theme = {
+    package = pkgs.gruvbox-dark-gtk;
+    name = "gruvbox-dark";
   };
 
   # Home Manager can also manage your environment variables through

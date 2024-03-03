@@ -11,8 +11,6 @@ pkgs, lib, config, ... }:
 
   config = {
 
-    
-
     wayland.windowManager.hyprland = {
       enable = true;
 
@@ -40,6 +38,7 @@ pkgs, lib, config, ... }:
 	  "webcord"
 	  "firefox"
 	  "steam"
+	  "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 16"
 	];	
 
         general = {
