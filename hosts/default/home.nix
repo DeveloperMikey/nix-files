@@ -49,6 +49,7 @@
     pkgs.lxappearance-gtk2
     pkgs.fzf
     pkgs.peazip
+    pkgs.xfce.thunar
         # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?

@@ -34,6 +34,7 @@ pkgs, lib, config, ... }:
         exec-once = [
           "waybar"
 	  "hyprpaper"
+	  "hypridle"
 	  "swaync"
 	  "webcord"
 	  "firefox"
