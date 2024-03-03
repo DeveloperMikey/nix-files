@@ -71,6 +71,7 @@
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan; 
 
   programs.steam.enable = true;
+  programs.ssh.startAgent = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -135,6 +136,7 @@
 
   programs.fish.interactiveShellInit = ''
     alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix#default"
+    zoxide init fish | source
   '';
 
   # Some programs need SUID wrappers, can be configured further or are

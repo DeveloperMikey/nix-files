@@ -5,7 +5,6 @@
     ../../modules/home-manager/hyprland.nix
   ];
 
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mike";
@@ -24,13 +23,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.neovim
     pkgs.firefox
-    pkgs.btop
     pkgs.alacritty
     pkgs.wofi
     pkgs.neofetch
-    pkgs.eww
     pkgs.wl-clipboard
     pkgs.waybar
     pkgs.font-awesome_5
@@ -48,11 +44,11 @@
     pkgs.nextcloud-client
     pkgs.xwaylandvideobridge
     pkgs.webcord-vencord
-    pkgs.obs-studio
     pkgs.git
     pkgs.git-credential-manager
-    pkgs.p7zip
     pkgs.lxappearance-gtk2
+    pkgs.fzf
+    pkgs.peazip
         # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?
@@ -127,6 +123,34 @@
   gtk.theme = {
     package = pkgs.gruvbox-dark-gtk;
     name = "gruvbox-dark";
+  };
+
+  programs.obs-studio = {
+    enable = true;
+  };
+
+  programs.btop = {
+    enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+
+    extraLuaConfig = ''
+      vim.o.number = true
+
+      vim.o.background = "dark"
+      vim.cmd([[colorscheme gruvbox]])
+    '';
+
+    plugins = [
+      pkgs.vimPlugins.gruvbox-nvim
+    ];
+
   };
 
   # Home Manager can also manage your environment variables through
