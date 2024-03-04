@@ -16,7 +16,7 @@ require("lualine").setup({
 vim.keymap.set('n', '<leader>w', function() vim.cmd(':w') end, {silent = true, noremap = true})
 vim.keymap.set('n', '<leader>q', function() vim.cmd(':q') end, {silent = true, noremap = true})
 
-require('colorizer').setup()
+
 
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
@@ -34,7 +34,20 @@ sources = cmp.config.sources({
 	})
 })
 
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 1000,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}
 
+require('colorizer').setup({})
 
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})

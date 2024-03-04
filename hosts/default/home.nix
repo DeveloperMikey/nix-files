@@ -164,6 +164,7 @@
       pkgs.vimPlugins.nvim-tree-lua
       pkgs.vimPlugins.nvim-colorizer-lua
       pkgs.vimPlugins.barbar-nvim
+      pkgs.vimPlugins.nvim-cursorline
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
