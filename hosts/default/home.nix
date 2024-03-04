@@ -146,6 +146,7 @@
       ${builtins.readFile ../../dotfiles/neovim/init.lua}
       ${builtins.readFile ../../dotfiles/neovim/lsp.lua}
       ${builtins.readFile ../../dotfiles/neovim/tree.lua}
+      ${builtins.readFile ../../dotfiles/neovim/barbar.lua}
     '';
 
     plugins = [
@@ -161,6 +162,8 @@
       pkgs.vimPlugins.plenary-nvim
       pkgs.vimPlugins.neodev-nvim
       pkgs.vimPlugins.nvim-tree-lua
+      pkgs.vimPlugins.nvim-colorizer-lua
+      pkgs.vimPlugins.barbar-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];

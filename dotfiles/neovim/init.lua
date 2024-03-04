@@ -13,6 +13,11 @@ require("lualine").setup({
 	theme = 'gruvbox',
 })
 
+vim.keymap.set('n', '<leader>w', function() vim.cmd(':w') end, {silent = true, noremap = true})
+vim.keymap.set('n', '<leader>q', function() vim.cmd(':q') end, {silent = true, noremap = true})
+
+require('colorizer').setup()
+
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
