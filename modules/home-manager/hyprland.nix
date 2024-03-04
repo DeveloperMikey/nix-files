@@ -19,7 +19,7 @@ pkgs, lib, config, ... }:
         
         "$terminal" = "alacritty";
         "$mod" = "SUPER";
-        "$menu" = "wofi --show";
+        "$menu" = "wofi -i --show";
 
 	xwayland = {
 	  force_zero_scaling = true;
@@ -29,7 +29,10 @@ pkgs, lib, config, ... }:
 	  "workspace 3 silent,class:(firefox)"
 	  "workspace 4 silent,class:(WebCord)"
 	  "workspace 5 silent,class:(steam)"
-	];
+	  "minsize 1 1, title:^()$,class:^(steam)$"
+	  "stayfocused, title:^()$,class:^(steam)$"
+          "nofocus, title:^(notificationtoasts_*_desktop),class:(steam)"
+          ];
 
         exec-once = [
           "waybar"
@@ -39,7 +42,8 @@ pkgs, lib, config, ... }:
 	  "webcord"
 	  "firefox"
 	  "steam"
-	  "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 16"
+          "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 16"
+          "swayidle -w before-sleep 'swaylock' timeout 600 'systemctl suspend' timeout 1800 'systemctl hibernate'"
 	];	
 
         general = {
@@ -119,6 +123,7 @@ pkgs, lib, config, ... }:
         input = {
           "kb_layout" = "ee";
 	  "follow_mouse" = "1";
+	  mouse_refocus = false;
 	  touchpad = {
             natural_scroll = false;
 	  };

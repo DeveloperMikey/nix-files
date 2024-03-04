@@ -69,6 +69,7 @@
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan; 
+  security.pam.services.swaylock.fprintAuth = true;
 
   programs.steam.enable = true;
   programs.ssh.startAgent = true;
@@ -114,8 +115,16 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
+  fonts.packages = with pkgs; [
+    fira-code
+    nerdfonts
+    font-awesome_5
+  ];
+
   environment.systemPackages = with pkgs; [
-    
+    libgccjit
+    rustup
   ];
 
   #Hyprland
@@ -137,7 +146,7 @@
   programs.fish.interactiveShellInit = ''
     alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix#default"
     zoxide init fish | source
-  '';
+  ''; 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

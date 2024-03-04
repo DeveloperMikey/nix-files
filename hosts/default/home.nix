@@ -22,21 +22,18 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
+
   home.packages = [
     pkgs.firefox
-    pkgs.alacritty
     pkgs.wofi
     pkgs.neofetch
     pkgs.wl-clipboard
     pkgs.waybar
-    pkgs.font-awesome_5
     pkgs.usbutils
     pkgs.ripgrep
     pkgs.hyprpaper
     pkgs.brightnessctl
     pkgs.wev
-    pkgs.hypridle
-    pkgs.hyprlock
     pkgs.xdg-desktop-portal-hyprland
     pkgs.swaynotificationcenter
     pkgs.zoxide
@@ -50,6 +47,14 @@
     pkgs.fzf
     pkgs.peazip
     pkgs.xfce.thunar
+    pkgs.gnome.gnome-power-manager
+    pkgs.swayidle
+    pkgs.meson
+    pkgs.ninja
+    pkgs.swayidle
+    pkgs.fd
+    pkgs.nil
+    pkgs.lua-language-server
         # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?
@@ -62,7 +67,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-
+  
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -89,14 +94,6 @@
       source = ../../dotfiles/hyprland/hyprpaper.conf;
     };
 
-    ".config/hypr/hypridle.conf" = {
-      source = ../../dotfiles/hyprland/hypridle.conf;
-    };
-
-    ".config/hypr/hyprlock.conf" = {
-      source = ../../dotfiles/hyprland/hyprlock.conf;
-    };
-
     ".config/wofi/" = {
       source = ../../dotfiles/wofi;
     };
@@ -109,8 +106,7 @@
       source = ../../dotfiles/alacritty;
     };
   };
-
-
+  
   gtk.enable = true;
   gtk.cursorTheme = {
     package = pkgs.capitaine-cursors-themed;
@@ -141,36 +137,58 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraLuaConfig = ''
-      vim.o.number = true
+    extraConfig = ''
+      colorscheme gruvbox
+      nmap <space> <leader>
+    '';
 
-      vim.o.background = "dark"
-      vim.cmd([[colorscheme gruvbox]])
+    extraLuaConfig = ''
+      ${builtins.readFile ../../dotfiles/neovim/init.lua}
+      ${builtins.readFile ../../dotfiles/neovim/lsp.lua}
+      ${builtins.readFile ../../dotfiles/neovim/tree.lua}
     '';
 
     plugins = [
       pkgs.vimPlugins.gruvbox-nvim
+      pkgs.vimPlugins.vim-nix
+      pkgs.vimPlugins.comment-nvim
+      pkgs.vimPlugins.nvim-web-devicons
+      pkgs.vimPlugins.lualine-nvim
+      pkgs.vimPlugins.nvim-lspconfig
+      pkgs.vimPlugins.nvim-cmp
+      pkgs.vimPlugins.cmp-nvim-lsp
+      pkgs.vimPlugins.telescope-nvim
+      pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.neodev-nvim
+      pkgs.vimPlugins.nvim-tree-lua
+
+      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
 
+    extraPackages = [
+      pkgs.wl-clipboard
+      pkgs.nil
+      pkgs.lua-language-server
+    ];
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/mike/etc/profile.d/hm-session-vars.sh
-  #
+  programs.alacritty = {
+    enable = true;
+  };
 
-  
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = {
+      ignore-empty-password = false;
+      screenshots = true;
+      clock = true;
+      indicator = true;
+      fade-in = 0.2;
+      effect-scale = 0.5;
+      effect-pixelate = 10;
+    };
+  }; 
 
   home.sessionVariables = {
     EDITOR = "nvim";
