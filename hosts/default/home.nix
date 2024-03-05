@@ -55,6 +55,7 @@
     pkgs.fd
     pkgs.nil
     pkgs.lua-language-server
+    pkgs.gh
         # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 
     # # fonts?
@@ -143,10 +144,11 @@
     '';
 
     extraLuaConfig = ''
+      ${builtins.readFile ../../dotfiles/neovim/barbar.lua}
       ${builtins.readFile ../../dotfiles/neovim/init.lua}
       ${builtins.readFile ../../dotfiles/neovim/lsp.lua}
       ${builtins.readFile ../../dotfiles/neovim/tree.lua}
-      ${builtins.readFile ../../dotfiles/neovim/barbar.lua}
+      
     '';
 
     plugins = [
@@ -165,6 +167,14 @@
       pkgs.vimPlugins.nvim-colorizer-lua
       pkgs.vimPlugins.barbar-nvim
       pkgs.vimPlugins.nvim-cursorline
+      pkgs.vimPlugins.luasnip
+      pkgs.vimPlugins.cmp_luasnip
+      pkgs.vimPlugins.cheatsheet-nvim
+      pkgs.vimPlugins.vim-be-good
+      pkgs.vimPlugins.nvim-autopairs
+      pkgs.vimPlugins.git-blame-nvim
+      pkgs.vimPlugins.octo-nvim
+      pkgs.vimPlugins.neoscroll-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
