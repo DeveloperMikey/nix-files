@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
+    inputs.ags.homeManagerModules.default
     ../../modules/home-manager/hyprland.nix
   ];
 
@@ -173,8 +174,8 @@
       pkgs.vimPlugins.vim-be-good
       pkgs.vimPlugins.nvim-autopairs
       pkgs.vimPlugins.git-blame-nvim
-      pkgs.vimPlugins.octo-nvim
       pkgs.vimPlugins.neoscroll-nvim
+      pkgs.vimPlugins.diffview-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
@@ -202,7 +203,17 @@
       effect-scale = 0.5;
       effect-pixelate = 10;
     };
-  }; 
+  };
+
+  programs.ags = {
+    enable = true;
+
+    configDir = ../../dotfiles/ags;
+
+    extraPackages = [
+
+    ];
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";

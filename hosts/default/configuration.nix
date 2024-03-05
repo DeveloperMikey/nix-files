@@ -125,7 +125,10 @@
   environment.systemPackages = with pkgs; [
     libgccjit
     rustup
+    nodePackages.typescript-language-server
   ];
+
+  programs.npm.enable = true;
 
   #Hyprland
   programs.hyprland.enable = true;

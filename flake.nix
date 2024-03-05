@@ -10,6 +10,12 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+    ags.url = "github:Aylur/ags";
+
+    hy3 = {
+      url = "github:outfoxxed/hy3";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

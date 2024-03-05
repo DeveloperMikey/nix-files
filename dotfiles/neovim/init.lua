@@ -1,7 +1,7 @@
 local cmp = require("cmp")
 local telescope_builtin = require('telescope.builtin')
 
-vim.o.number = true
+vim.o.relativenumber = true
 vim.o.background = "dark"
 vim.opt.showmode = false
 vim.wo.wrap = false
@@ -15,6 +15,16 @@ require("lualine").setup({
 
 vim.keymap.set('n', '<leader>w', function() vim.cmd(':w') end, {silent = true, noremap = true})
 vim.keymap.set('n', '<leader>q', function() vim.cmd(':q') end, {silent = true, noremap = true})
+vim.keymap.set('n', '<leader>q', function() 
+  if vim.o.number then
+  	vim.o.relativenumber = true
+		vim.o.number = false
+	else
+		vim.o.number = true
+		vim.o.relativenumber = false
+  end
+end, {silent = true, noremap = true})
+vim.keymap.set('n', '<leader>Q', function() vim.o.number = false vim.o.relativenumber = false end, {silent = true, noremap = true})
 
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
@@ -58,8 +68,8 @@ require('gitblame').setup {
      --Note how the `gitblame_` prefix is omitted in `setup`
     enabled = false,
 }
-require"octo".setup()
 require('neoscroll').setup()
+require("diffview").setup({})
 
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
