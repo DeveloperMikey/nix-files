@@ -1,3 +1,4 @@
+#Requires redoing everything, not a good setup
 { inputs, pkgs, ... }:
 
 {

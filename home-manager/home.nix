@@ -1,4 +1,4 @@
-{ inputs, pkgs, nixvim, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -144,6 +144,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    MOZ_USE_XINPUT2 = "1";
   };
 
   # Let Home Manager install and manage itself.
