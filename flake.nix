@@ -1,5 +1,5 @@
 {
-  description = "Nixos config flake";
+  description = "Nixos system configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,22 +16,27 @@
       url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
     };
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
     
-      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [ 
-            ./hosts/default/configuration.nix
-            inputs.home-manager.nixosModules.default
+    {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+	modules = [ 
+            ./nixos/configuration.nix
+	    inputs.home-manager.nixosModules.default
           ];
         };
-
+	homeConfigurations.mike = inputs.home-manager.lib.homeManagerConfiguration {
+	  inherit inputs;
+	  modules = [
+	    ./home-manager/home.nix
+	  ];
+	  extraSpecialArgs = { inherit inputs; };
+	};
     };
 }

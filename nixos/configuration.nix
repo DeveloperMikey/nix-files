@@ -44,37 +44,28 @@
     LC_NUMERIC = "et_EE.UTF-8";
     LC_PAPER = "et_EE.UTF-8";
     LC_TELEPHONE = "et_EE.UTF-8";
-    LC_TIME = "et_EE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
+    enable = false;
     xkb.layout = "ee";
     xkb.variant = "";
   };
-
-  # Configure console keymap
+  
   console.keyMap = "et";
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # fingerprint for my laptop
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan; 
+  services.upower.enable = true;
   security.pam.services.swaylock.fprintAuth = true;
 
   programs.steam.enable = true;
   programs.ssh.startAgent = true;
 
-  # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -96,7 +87,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mike = {
     isNormalUser = true;
     description = "Michael";
@@ -106,26 +96,45 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "mike" = import ./home.nix;
+      "mike" = import ../home-manager/home.nix;
     };
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
   fonts.packages = with pkgs; [
     fira-code
     nerdfonts
     font-awesome_5
   ];
-
+ 
   environment.systemPackages = with pkgs; [
     libgccjit
     rustup
     nodePackages.typescript-language-server
+    pulseaudio
+    nss
+    gcc
+    nodejs_18
+
+    (pkgs.writeShellScriptBin "set-mic-led" ''
+      echo "$1" | ${pkgs.coreutils}/bin/tee /sys/class/leds/platform\:\:micmute/brightness > /dev/null
+    '')
+  ];
+
+  
+
+  security.sudo.extraRules = [
+    {
+      users = ["mike"];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/set-mic-led";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
   ];
 
   programs.npm.enable = true;
@@ -147,7 +156,7 @@
   };
 
   programs.fish.interactiveShellInit = ''
-    alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix#default"
+    alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix-files#nixos"
     zoxide init fish | source
   ''; 
 

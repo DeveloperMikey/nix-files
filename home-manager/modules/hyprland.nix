@@ -31,13 +31,14 @@
 	        "workspace 3 silent,class:(firefox)"
 	        "workspace 4 silent,class:(WebCord)"
 	        "workspace 5 silent,class:(steam)"
+          "workspace 5 silent,title:(Steam)"
 	        "minsize 1 1, title:^()$,class:^(steam)$"
 	        "stayfocused, title:^()$,class:^(steam)$"
           "nofocus, title:^(notificationtoasts_*_desktop),class:(steam)"
         ];
 
         exec-once = [
-          "waybar"
+          "ags"
 	        "hyprpaper"
 	        "hypridle"
 	        "swaync"
@@ -50,8 +51,8 @@
 
         general = {
           layout = "dwindle";
-	        gaps_in = 5;
-	        gaps_out = 20;
+	        gaps_in = 4;
+          gaps_out = 6;
 	        border_size = 2;
 
           allow_tearing = false;
@@ -67,7 +68,8 @@
 	        "$mod, V, togglefloating"
 	        "$mod, P, pseudo"
 	        "$mod, J, togglesplit"
-	        "$mod, M, exit"
+          "$mod, F, fullscreen"
+          "$mod, L, exec, swaylock"
 	  
 	        "$mod, left, movefocus, l"
 	        "$mod, right, movefocus, r"
@@ -96,6 +98,9 @@
 	        "$mod SHIFT, 9, movetoworkspacesilent, 9"
 	        "$mod SHIFT, 0, movetoworkspacesilent, 10"
 
+          "$mod, D, togglespecialworkspace"
+          "$mod SHIFT, D, movetoworkspace, special"
+
 	        "ALT, Tab, cyclenext"
 	        "ALT, Tab, bringactivetotop"
 
@@ -110,6 +115,7 @@
 	        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          ", XF86AudioMicMute, exec, amixer set Capture toggle"
 	      ];
 
 	      bindm = [
@@ -127,7 +133,8 @@
 	        "follow_mouse" = "1";
 	        mouse_refocus = false;
 	        touchpad = {
-            natural_scroll = false;
+            natural_scroll = true;
+            disable_while_typing = false;
 	        };
   	    };
 

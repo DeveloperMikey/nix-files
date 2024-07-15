@@ -40,3 +40,9 @@ map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 -- Other:
 -- :BarbarEnable - enables barbar (enabled by default)
 -- :BarbarDisable - very bad command, should never be used
+
+require'barbar'.setup({
+	sidebar_filetypes = {
+    NvimTree = true,
+  },
+})

@@ -14,8 +14,7 @@ require("lualine").setup({
 })
 
 vim.keymap.set('n', '<leader>w', function() vim.cmd(':w') end, {silent = true, noremap = true})
-vim.keymap.set('n', '<leader>q', function() vim.cmd(':q') end, {silent = true, noremap = true})
-vim.keymap.set('n', '<leader>q', function() 
+vim.keymap.set('n', '<leader>q', function()
   if vim.o.number then
   	vim.o.relativenumber = true
 		vim.o.number = false
@@ -45,7 +44,17 @@ cmp.setup({
   },
   {
 		{ name = 'buffer' },
-	})
+	}),
+	enabled = function()
+		local context = require 'cmp.config.context'
+    -- keep command mode completion enabled when cursor is in a comment
+    if vim.api.nvim_get_mode().mode == 'c' then
+      return true
+    else
+      return not context.in_treesitter_capture("comment")
+        and not context.in_syntax_group("Comment")
+    end
+	end
 })
 
 require('nvim-cursorline').setup {
@@ -68,8 +77,28 @@ require('gitblame').setup {
      --Note how the `gitblame_` prefix is omitted in `setup`
     enabled = false,
 }
-require('neoscroll').setup()
 require("diffview").setup({})
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Conform will run multiple formatters sequentially
+    python = { "isort", "black" },
+    -- Use a sub-list to run only the first available formatter
+    javascript = { { "prettierd", "prettier" } },
+		nix = { "nixfmt" }
+  },
+})
+vim.api.nvim_create_user_command("Format", function(args)
+  local range = nil
+  if args.count ~= -1 then
+    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+    range = {
+      start = { args.line1, 0 },
+      ["end"] = { args.line2, end_line:len() },
+    }
+  end
+  require("conform").format({ async = true, lsp_fallback = true, range = range })
+end, { range = true })
 
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
