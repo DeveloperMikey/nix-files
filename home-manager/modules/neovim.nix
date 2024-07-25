@@ -1,7 +1,8 @@
-#Requires redoing everything, not a good setup
+# Requires redoing everything, not a good setup
 { inputs, pkgs, ... }:
 
 {
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -12,12 +13,6 @@
     extraConfig = ''
       colorscheme gruvbox
       nmap <space> <leader>
-    '';
-
-    extraLuaConfig = ''
-      ${builtins.readFile ../../dotfiles/neovim/barbar.lua}
-      ${builtins.readFile ../../dotfiles/neovim/init.lua}
-      ${builtins.readFile ../../dotfiles/neovim/lsp.lua}
     '';
 
     plugins = [
@@ -43,10 +38,23 @@
       pkgs.vimPlugins.git-blame-nvim
       pkgs.vimPlugins.diffview-nvim
       pkgs.vimPlugins.conform-nvim
+      pkgs.vimPlugins.oil-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
 
-    extraPackages = [ pkgs.wl-clipboard pkgs.nil pkgs.lua-language-server ];
+    extraPackages = [
+      pkgs.wl-clipboard
+      pkgs.nil
+      pkgs.lua-language-server
+      pkgs.rustfmt
+      pkgs.rust-analyzer
+    ];
   };
+
+  home.file."./.config/nvim/" = {
+    source = ../../dotfiles/neovim;
+    recursive = true;
+  };
+
 }

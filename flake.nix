@@ -14,22 +14,15 @@
 
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
 
     {
       nixosConfigurations.thinkpad_e14 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [
-          ./nixos/thinkpad_e14.nix
-          inputs.home-manager.nixosModules.default
-        ];
+        modules =
+          [ ./nixos/thinkpad_e14.nix inputs.home-manager.nixosModules.default ];
       };
-      homeConfigurations.mike =
-        inputs.home-manager.lib.homeManagerConfiguration {
-          inherit inputs;
-          modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { inherit inputs; };
-        };
     };
 }
 
