@@ -63,6 +63,7 @@
     pkgs.ani-cli
     pkgs.fastfetch
     pkgs.nixfmt
+    pkgs.mpv
   ];
   
   home.file = {

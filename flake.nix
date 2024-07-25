@@ -17,10 +17,10 @@
   outputs = { self, nixpkgs, ... }@inputs:
 
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.thinkpad_e14 = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./nixos/configuration.nix
+          ./nixos/thinkpad_e14.nix
           inputs.home-manager.nixosModules.default
         ];
       };
@@ -32,3 +32,4 @@
         };
     };
 }
+
