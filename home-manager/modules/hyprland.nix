@@ -20,7 +20,7 @@
       settings = {
         monitor = ",highres,auto,auto,bitdepth,10";
         
-        "$terminal" = "alacritty";
+        "$terminal" = "kitty";
         "$mod" = "SUPER";
         "$menu" = "wofi -i --show";
 
@@ -130,7 +130,8 @@
 	      ];
 
         input = {
-          "kb_layout" = "ee";
+          "kb_layout" = "us,ee,ru";
+          "kb_options" = "grp:alt_shift_toggle";
 	        "follow_mouse" = "1";
 	        mouse_refocus = false;
 	        touchpad = {
@@ -180,7 +181,7 @@
 	      };
 
 	      master = {
-	        new_is_master = true;
+          new_status = "master";
 	      };
 
 	      gestures = {

@@ -38,3 +38,6 @@ require("plugins.conform")
 require("plugins.cheatsheet")
 require("plugins.telescope")
 require('neogit').setup{}
+require("plugins.sessions")
+require("ibl").setup()
+require("dropbar").setup({})

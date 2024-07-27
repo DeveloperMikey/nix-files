@@ -14,7 +14,6 @@ require("neodev").setup({
 -- LSP Configs
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
-lspconfig.rust_analyzer.setup {}
 
 lspconfig.nil_ls.setup {}
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

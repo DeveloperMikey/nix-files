@@ -1,36 +1,56 @@
 { pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
 
-      ./modules/defaults.nix
+    ./modules/defaults.nix
 
-      ./modules/users/mike.nix
-    ];
+    ./modules/users/mike.nix
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # fingerprint for my laptop
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan; 
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan;
   services.upower.enable = true;
   security.pam.services.swaylock.fprintAuth = true;
+  services.tlp.enable = true;
 
-  programs.steam.enable = true;
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   programs.ssh.startAgent = true;
+  programs.steam = {
+    enable = true;
+    extraPackages = [ pkgs.gamescope pkgs.mangohud ];
+    package = pkgs.steam.override {
+      extraEnv = {
+        MANGOHUD = true;
+        OBS_VKCAPTURE = true;
+      };
+    };
+  };
+  programs.gamemode.enable = true;
+  programs.gamescope.enable = true;
+  hardware.opengl = {
+    extraPackages = with pkgs; [ mangohud gamemode ];
+    extraPackages32 = with pkgs; [ mangohud gamemode ];
+  };
+
+  zramSwap = { enable = true; };
 
   nixpkgs.config.allowUnfree = true;
 
-  fonts.packages = with pkgs; [
-    fira-code
-    nerdfonts
-    font-awesome_5
-  ];
- 
+  fonts.packages = with pkgs; [ fira-code nerdfonts font-awesome_5 ];
+
   environment.systemPackages = with pkgs; [
     libgccjit
     rustup
@@ -45,42 +65,30 @@
     '')
   ];
 
-  
-
-  security.sudo.extraRules = [
-    {
-      users = ["mike"];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/set-mic-led";
-          options = ["NOPASSWD"];
-        }
-      ];
-    }
-  ];
+  security.sudo.extraRules = [{
+    users = [ "mike" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/set-mic-led";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   programs.npm.enable = true;
 
   #Hyprland
   programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-
-  programs.fish.enable = true;
+  programs.hyprland.package =
+    inputs.hyprland.packages."${pkgs.system}".hyprland;
 
   programs.bash = {
-  interactiveShellInit = ''
-    if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-    then
-      shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-      exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-    fi 
-  '';
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
   };
-
-  programs.fish.interactiveShellInit = ''
-    alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix-files#thinkpad_e14"
-    zoxide init fish | source
-  ''; 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

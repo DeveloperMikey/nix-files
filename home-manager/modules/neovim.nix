@@ -1,6 +1,5 @@
 # Requires redoing everything, not a good setup
-{ inputs, pkgs, ... }:
-
+{ inputs, pkgs, lib, ... }:
 {
 
   programs.neovim = {
@@ -15,6 +14,7 @@
       nmap <space> <leader>
     '';
 
+
     plugins = [
       pkgs.vimPlugins.gruvbox-nvim
       pkgs.vimPlugins.vim-nix
@@ -24,9 +24,12 @@
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.nvim-cmp
       pkgs.vimPlugins.cmp-nvim-lsp
+      pkgs.vimPlugins.cmp-git
+      pkgs.vimPlugins.cmp-cmdline
+      pkgs.vimPlugins.cmp-buffer
+      pkgs.vimPlugins.neodev-nvim
       pkgs.vimPlugins.telescope-nvim
       pkgs.vimPlugins.plenary-nvim
-      pkgs.vimPlugins.neodev-nvim
       pkgs.vimPlugins.nvim-colorizer-lua
       pkgs.vimPlugins.barbar-nvim
       pkgs.vimPlugins.nvim-cursorline
@@ -39,6 +42,14 @@
       pkgs.vimPlugins.diffview-nvim
       pkgs.vimPlugins.conform-nvim
       pkgs.vimPlugins.oil-nvim
+      pkgs.vimPlugins.neogit
+      pkgs.vimPlugins.which-key-nvim
+      pkgs.vimPlugins.rustaceanvim
+      pkgs.vimPlugins.nvim-dap
+      pkgs.vimPlugins.alpha-nvim
+      pkgs.vimPlugins.persisted-nvim
+      pkgs.vimPlugins.indent-blankline-nvim
+      pkgs.vimPlugins.dropbar-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
@@ -49,6 +60,7 @@
       pkgs.lua-language-server
       pkgs.rustfmt
       pkgs.rust-analyzer
+      pkgs.vscode-extensions.vadimcn.vscode-lldb
     ];
   };
 

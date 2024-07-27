@@ -14,5 +14,5 @@
     LC_TELEPHONE = "et_EE.UTF-8";
   };
 
-  console.keyMap = "et";
+  console.keyMap = "us";
 }

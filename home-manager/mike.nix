@@ -41,7 +41,7 @@
     pkgs.keepassxc
     pkgs.nextcloud-client
     pkgs.xwaylandvideobridge
-    pkgs.webcord-vencord
+    pkgs.webcord
     pkgs.git
     pkgs.git-credential-manager
     pkgs.lxappearance-gtk2
@@ -64,34 +64,33 @@
     pkgs.fastfetch
     pkgs.nixfmt
     pkgs.mpv
+    pkgs.rust-analyzer
+    pkgs.wezterm
+    pkgs.yazi
+    pkgs.ffmpegthumbnailer
+    pkgs.unar
+    pkgs.jq
+    pkgs.poppler
   ];
-  
-  home.file = {
-    ".config/eww/eww.scss" = {
-      source = ../dotfiles/eww/eww.scss;
-    };
 
-    ".config/eww/eww.yuck" = {
-      source = ../dotfiles/eww/eww.yuck;
-    };
+  home.file = {
+    ".config/eww/eww.scss" = { source = ../dotfiles/eww/eww.scss; };
+
+    ".config/eww/eww.yuck" = { source = ../dotfiles/eww/eww.yuck; };
 
     ".config/hypr/hyprpaper.conf" = {
       source = ../dotfiles/hyprland/hyprpaper.conf;
     };
 
-    ".config/wofi/" = {
-      source = ../dotfiles/wofi;
-    };
+    ".config/wofi/" = { source = ../dotfiles/wofi; };
 
-    ".config/waybar" = {
-      source = ../dotfiles/waybar;
-    };
+    ".config/waybar" = { source = ../dotfiles/waybar; };
 
-    ".config/alacritty" = {
-      source = ../dotfiles/alacritty;
-    };
+    ".config/alacritty" = { source = ../dotfiles/alacritty; };
+
+    ".config/wezterm" = { source = ../dotfiles/wezterm; };
   };
- 
+
   gtk.enable = true;
   gtk.cursorTheme = {
     package = pkgs.capitaine-cursors-themed;
@@ -106,17 +105,30 @@
     package = pkgs.gruvbox-dark-gtk;
     name = "gruvbox-dark";
   };
+ 
+  programs.obs-studio = { enable = true; };
 
-  programs.obs-studio = {
-    enable = true;
-  };
+  programs.btop = { enable = true;
+  settings = {
+    color_theme = "gruvbox_dark";
+    };
+};
 
-  programs.btop = {
-    enable = true;
-  }; 
+  programs.alacritty = { enable = true; };
 
-  programs.alacritty = {
+  programs.wezterm = { enable = true; };
+
+  programs.kitty = {
     enable = true;
+    shellIntegration.enableFishIntegration = true;
+    theme = "Gruvbox Dark";
+    font.name = "DejaVu Sans";
+    font.size = 8;
+    settings = {
+      background_opacity = "0.8";
+      dynamic_background_opacity = "true";
+      background_blur = "1";
+    };
   };
 
   programs.swaylock = {
@@ -131,6 +143,17 @@
       effect-scale = 0.5;
       effect-pixelate = 10;
     };
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+set fish_greeting
+
+alias rebuild="sudo nixos-rebuild switch --flake /home/mike/nix-files#thinkpad_e14"
+zoxide init fish | source
+export EDITOR=nvim
+    '';
   };
 
   programs.ags = {
