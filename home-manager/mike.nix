@@ -41,7 +41,7 @@
     pkgs.keepassxc
     pkgs.nextcloud-client
     pkgs.xwaylandvideobridge
-    pkgs.webcord
+    pkgs.webcord-vencord
     pkgs.git
     pkgs.git-credential-manager
     pkgs.lxappearance-gtk2
@@ -71,6 +71,13 @@
     pkgs.unar
     pkgs.jq
     pkgs.poppler
+    pkgs.nix-du
+    pkgs.zgrviewer
+    pkgs.graphviz
+    pkgs.sassc
+    pkgs.vscode-langservers-extracted
+    pkgs.grim
+    pkgs.slurp
   ];
 
   home.file = {
@@ -122,13 +129,20 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     theme = "Gruvbox Dark";
-    font.name = "DejaVu Sans";
-    font.size = 8;
+    font = {
+      package = pkgs.fira-code;
+      name = "Fira Code";
+      size = 8;
+    };
     settings = {
       background_opacity = "0.8";
       dynamic_background_opacity = "true";
       background_blur = "1";
     };
+  };
+
+  programs.bun = {
+    enable = true;
   };
 
   programs.swaylock = {
@@ -161,8 +175,10 @@ export EDITOR=nvim
 
     configDir = ../dotfiles/ags;
 
-    extraPackages = [
-
+    extraPackages = with pkgs; [
+      gtksourceview
+      webkitgtk
+      accountsservice
     ];
   };
 

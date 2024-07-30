@@ -40,7 +40,7 @@
   };
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
-  hardware.opengl = {
+  hardware.graphics = {
     extraPackages = with pkgs; [ mangohud gamemode ];
     extraPackages32 = with pkgs; [ mangohud gamemode ];
   };
@@ -49,7 +49,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  fonts.packages = with pkgs; [ fira-code nerdfonts font-awesome_5 ];
+  fonts.packages = with pkgs; [
+    fira-code
+    nerdfonts
+    font-awesome_5
+    scientifica
+  ];
 
   environment.systemPackages = with pkgs; [
     libgccjit
@@ -61,16 +66,28 @@
     nodejs_18
 
     (pkgs.writeShellScriptBin "set-mic-led" ''
-      echo "$1" | ${pkgs.coreutils}/bin/tee /sys/class/leds/platform\:\:micmute/brightness > /dev/null
+      #!/bin/sh
+      echo "$1" | tee /sys/class/leds/platform::micmute/brightness > /dev/null
+    '')
+    (pkgs.writeShellScriptBin "toggle-mic-mute" ''
+      mute_status=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print ($2 == "yes") ? 0 : 1}')
+      sudo set-mic-led "$mute_status"
+      pactl set-source-mute @DEFAULT_SOURCE@ toggle
     '')
   ];
 
   security.sudo.extraRules = [{
     users = [ "mike" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/set-mic-led";
-      options = [ "NOPASSWD" ];
-    }];
+    commands = [
+      {
+        command = "/run/current-system/sw/bin/toggle-mic-mute";
+        options = [ "NOPASSWD" ];
+      }
+      {
+        command = "/run/current-system/sw/bin/set-mic-led";
+        options = [ "NOPASSWD" ];
+      }
+    ];
   }];
 
   programs.npm.enable = true;

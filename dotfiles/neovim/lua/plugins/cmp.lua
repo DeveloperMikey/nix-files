@@ -16,10 +16,7 @@ lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
 
 lspconfig.nil_ls.setup {}
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-lspconfig['nil_ls'].setup {
-	capabilities = capabilities
-}
+lspconfig.cssls.setup {}
 
 lspconfig.lua_ls.setup {}
 

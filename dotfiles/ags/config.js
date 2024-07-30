@@ -1,10 +1,15 @@
-import Bar from "./modules/bar.js"
-import { IndicatorSideBar } from "./modules/volumeChangeIndicator.js"
+const entry = '/home/mike/nix-files/dotfiles/ags/ts/main.ts'
+const outdir = '/tmp/ags/js'
 
-App.config({
-	name: "ags-bar",
-	style: "./style.css",
-  windows: [
-  	Bar(),
-  ],
-});
+try {
+	await Utils.execAsync([
+		'bun', 'build', entry,
+		'--outdir', outdir,
+		'--external', 'resource://*',
+		'--external', 'gi://*',
+		'--external', 'file://*',
+	])
+	await import(`file://${outdir}/main.js`)
+} catch (error) {
+	console.error(error)
+}

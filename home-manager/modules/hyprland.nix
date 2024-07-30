@@ -114,9 +114,9 @@
 	        "SUPER SHIFT, down, movewindow, d"
 
 	        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-          ", XF86AudioMicMute, exec, amixer set Capture toggle"
+          ", XF86MonBrightnessUp, exec, brightnessctl set 3%+"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 3%-"
+          ", XF86AudioMicMute, exec, toggle-mic-mute"
 	      ];
 
 	      bindm = [

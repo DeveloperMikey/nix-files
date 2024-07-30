@@ -50,6 +50,7 @@
       pkgs.vimPlugins.persisted-nvim
       pkgs.vimPlugins.indent-blankline-nvim
       pkgs.vimPlugins.dropbar-nvim
+      pkgs.vimPlugins.telescope-symbols-nvim
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];

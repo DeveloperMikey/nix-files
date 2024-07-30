@@ -1,0 +1,18 @@
+.bar {
+  background: $bar-background;
+}
+
+.barbox {
+  background: transparent;
+}
+
+.bar-content {
+  background: $bar-content-background;
+  padding: 0rem 0.2rem;
+  margin: 0.15rem 0.2rem;
+  border-radius: 0.15em;
+
+  &:hover {
+    background-color: $bar-content-hover-background;
+  }
+}
