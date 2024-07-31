@@ -44,7 +44,6 @@
       pkgs.vimPlugins.oil-nvim
       pkgs.vimPlugins.neogit
       pkgs.vimPlugins.which-key-nvim
-      pkgs.vimPlugins.rustaceanvim
       pkgs.vimPlugins.nvim-dap
       pkgs.vimPlugins.alpha-nvim
       pkgs.vimPlugins.persisted-nvim
@@ -59,8 +58,6 @@
       pkgs.wl-clipboard
       pkgs.nil
       pkgs.lua-language-server
-      pkgs.rustfmt
-      pkgs.rust-analyzer
       pkgs.vscode-extensions.vadimcn.vscode-lldb
     ];
   };

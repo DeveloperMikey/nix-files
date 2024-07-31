@@ -234,6 +234,30 @@
         "type": "github"
       }
     },
+    "kmonad": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1722406785,
+        "narHash": "sha256-wG7wuMEB6etBEZhWZJBPPc0mopK5a5YdsZjHbJYrC0c=",
+        "ref": "refs/heads/master",
+        "rev": "840af41fab33829ed03ba932aa017f8912e6fb75",
+        "revCount": 821,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kmonad/kmonad?dir=nix"
+      },
+      "original": {
+        "dir": "nix",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kmonad/kmonad?dir=nix"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1722017959,
@@ -303,6 +327,7 @@
         "ags": "ags",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "kmonad": "kmonad",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "rust-overlay": "rust-overlay"

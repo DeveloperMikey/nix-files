@@ -44,7 +44,6 @@
     pkgs.webcord-vencord
     pkgs.git
     pkgs.git-credential-manager
-    pkgs.lxappearance-gtk2
     pkgs.fzf
     pkgs.peazip
     pkgs.xfce.thunar
@@ -64,7 +63,6 @@
     pkgs.fastfetch
     pkgs.nixfmt
     pkgs.mpv
-    pkgs.rust-analyzer
     pkgs.wezterm
     pkgs.yazi
     pkgs.ffmpegthumbnailer
@@ -138,6 +136,11 @@
       background_opacity = "0.8";
       dynamic_background_opacity = "true";
       background_blur = "1";
+
+      tab_bar_min_tab = "1";
+      tab_bar_edge = "bottom";
+      tab_bar_style = "powerline";
+      tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
     };
   };
 

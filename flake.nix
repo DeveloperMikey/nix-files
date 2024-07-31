@@ -22,10 +22,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kmonad = {
+      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, home-manager, rust-overlay, nixos-hardware, ... }@inputs:
+  outputs =
+    { self, nixpkgs, home-manager, rust-overlay, nixos-hardware, ... }@inputs:
 
     {
       nixosConfigurations.thinkpad_e14 = nixpkgs.lib.nixosSystem {
@@ -34,11 +40,16 @@
         modules = [
           ./nixos/thinkpad_e14.nix
           inputs.home-manager.nixosModules.default
+          inputs.kmonad.nixosModules.default
           nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ rust-overlay.overlays.default ];
-            environment.systemPackages =
-              [ pkgs.rust-bin.stable.latest.default ];
+            environment.systemPackages = [
+              (pkgs.rust-bin.stable.latest.default.override {
+                extensions = [ "rust-analyzer" ];
+                targets = [ ];
+              })
+            ];
           })
         ];
       };

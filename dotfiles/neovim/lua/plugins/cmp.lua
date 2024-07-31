@@ -3,12 +3,12 @@ local lspconfig = require("lspconfig")
 
 -- Neodev
 require("neodev").setup({
-  override = function(root_dir, library)
-    if root_dir:find("/home/mike/nix-files/dotfiles/neovim", 1, true) == 1 then
-      library.enabled = true
-      library.plugins = true
-    end
-  end,
+	override = function(root_dir, library)
+		if root_dir:find("/home/mike/nix-files/dotfiles/neovim", 1, true) == 1 then
+			library.enabled = true
+			library.plugins = true
+		end
+	end,
 })
 
 -- LSP Configs
@@ -19,12 +19,13 @@ lspconfig.nil_ls.setup {}
 lspconfig.cssls.setup {}
 
 lspconfig.lua_ls.setup {}
+lspconfig.rust_analyzer.setup {}
 
 -- CMP Config
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			require('luasnip').lsp_expand(args.body)   -- For `luasnip` users.
+			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
 	window = {
@@ -36,7 +37,7 @@ cmp.setup({
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = true }),   -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },

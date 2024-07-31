@@ -5,6 +5,7 @@ import {BatteryBarLabel} from './battery'
 import {NetworkBarButton} from './network'
 import {VolumeBarButton} from './audio'
 import {BarWorkspaces} from './workspaces'
+import { LanguageLabel } from './language'
 
 const Left = () => Widget.Box({
 	class_name: "barbox",
@@ -25,6 +26,7 @@ const Right = () => Widget.Box({
 	hpack: "end",
 	children: [
 		BatteryBarLabel(),
+		LanguageLabel(),
 		NetworkBarButton(),
 		VolumeBarButton(),
 		CalendarBarButton(),

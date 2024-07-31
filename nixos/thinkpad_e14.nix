@@ -58,7 +58,6 @@
 
   environment.systemPackages = with pkgs; [
     libgccjit
-    rustup
     nodePackages.typescript-language-server
     pulseaudio
     nss
