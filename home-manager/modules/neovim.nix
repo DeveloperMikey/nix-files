@@ -1,6 +1,16 @@
 # Requires redoing everything, not a good setup
 { inputs, pkgs, lib, ... }:
-{
+let
+  tiny-code-action = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-easygrep";
+    src = pkgs.fetchFromGitHub {
+      owner = "rachartier";
+      repo = "tiny-code-action.nvim";
+      rev = "57d7f97924859a14b089146bd97b84058a500cfb";
+      hash = "sha256-p1Q0j+cpOg/vDik2p/eO+6U2z58jJVFBUe40lHHjEac=";
+    };
+  };
+in {
 
   programs.neovim = {
     enable = true;
@@ -13,7 +23,6 @@
       colorscheme gruvbox
       nmap <space> <leader>
     '';
-
 
     plugins = [
       pkgs.vimPlugins.gruvbox-nvim
@@ -50,6 +59,8 @@
       pkgs.vimPlugins.indent-blankline-nvim
       pkgs.vimPlugins.dropbar-nvim
       pkgs.vimPlugins.telescope-symbols-nvim
+      pkgs.vimPlugins.rustaceanvim
+      tiny-code-action
 
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
@@ -59,6 +70,7 @@
       pkgs.nil
       pkgs.lua-language-server
       pkgs.vscode-extensions.vadimcn.vscode-lldb
+      pkgs.nixd
     ];
   };
 

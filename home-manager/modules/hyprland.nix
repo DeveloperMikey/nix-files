@@ -117,6 +117,7 @@
           ", XF86MonBrightnessUp, exec, brightnessctl set 3%+"
           ", XF86MonBrightnessDown, exec, brightnessctl set 3%-"
           ", XF86AudioMicMute, exec, toggle-mic-mute"
+          ", print, exec, grimblast --cursor --freeze copysave area"
 	      ];
 
 	      bindm = [

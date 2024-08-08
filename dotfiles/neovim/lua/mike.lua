@@ -19,10 +19,23 @@ vim.keymap.set('n', '<leader>q', function()
 		vim.o.relativenumber = false
 	end
 end, { silent = true, noremap = true })
+
 vim.keymap.set('n', '<leader>Q', function()
 	vim.o.number = false
 	vim.o.relativenumber = false
 end, { silent = true, noremap = true })
+
+vim.keymap.set('n', '<leader>ca', function()
+	vim.cmd.RustLsp('codeAction')
+end, { silent = true, noremap = true })
+
+vim.keymap.set('n', '<leader>r', function()
+	vim.cmd.RustLsp('runnables')
+end, { silent = true, noremap = true })
+
+vim.g.rustaceanvim = {
+	auto_focus = true;
+}
 
 
 require("plugins.barbar")

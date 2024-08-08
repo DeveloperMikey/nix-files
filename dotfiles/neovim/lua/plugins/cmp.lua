@@ -12,14 +12,15 @@ require("neodev").setup({
 })
 
 -- LSP Configs
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.nil_ls.setup {}
-lspconfig.cssls.setup {}
-
-lspconfig.lua_ls.setup {}
-lspconfig.rust_analyzer.setup {}
+lspconfig.pyright.setup { capabilities = capabilities }
+lspconfig.tsserver.setup { capabilities = capabilities }
+lspconfig.nixd.setup { capabilities = capabilities }
+lspconfig.cssls.setup { capabilities = capabilities }
+lspconfig.lua_ls.setup { capabilities = capabilities }
+--lspconfig.rust_analyzer.setup { capabilities = capabilities }
+--Handled by Rustaceanvim
 
 -- CMP Config
 cmp.setup({
@@ -73,25 +74,4 @@ cmp.setup.cmdline(':', {
 	matching = { disallow_symbol_nonprefix_matching = false }
 })
 
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-cmp.setup.cmdline('/', {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = 'buffer' }
-	}
-})
-cmp.setup.cmdline(':', {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{
-			name = 'cmdline',
-			option = {
-				ignore_cmds = { 'Man', '!' }
-			}
-		}
-	})
-})
+vim.lsp.inlay_hint.enable(true)
