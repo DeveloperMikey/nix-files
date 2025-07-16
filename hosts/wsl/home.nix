@@ -10,6 +10,10 @@
       userName = "Mihkel Mäemees";
       userEmail = "maemeesmihkel@gmail.com";
     };
+
+    gh = {
+      enable = true;
+    };
   };
 
   home.stateVersion = "25.05"; # No changing

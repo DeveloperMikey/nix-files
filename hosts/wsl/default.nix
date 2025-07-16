@@ -23,7 +23,6 @@
     wget
     neovim
     nixfmt-rfc-style
-    gh
   ];
 
   programs.nix-ld.enable = true;
