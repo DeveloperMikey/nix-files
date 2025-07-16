@@ -21,7 +21,6 @@
 
   environment.systemPackages = with pkgs; [
     wget
-    git
     neovim
     nixfmt-rfc-style
     gh
