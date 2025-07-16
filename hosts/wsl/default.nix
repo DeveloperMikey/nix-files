@@ -13,15 +13,17 @@
   wsl.enable = true;
   wsl.defaultUser = "mike";
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.mike = ./home.nix;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.mike = ./home.nix;
+    backupFileExtension = "backup";
+  };
 
   nix.settings.experimental-features = "nix-command flakes";
 
   environment.systemPackages = with pkgs; [
     wget
-    neovim
     nixfmt-rfc-style
   ];
 
