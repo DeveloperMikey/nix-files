@@ -7,4 +7,9 @@ require("lazy").setup({
         missing = false,
         colorscheme = { "gruvbox" }
     },
+    performance = {
+        rtp = {
+            reset = false
+        }
+    }
 })

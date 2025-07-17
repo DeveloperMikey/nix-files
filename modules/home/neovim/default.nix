@@ -44,6 +44,10 @@ in
     extraPackages = with pkgs; [
       nixfmt-rfc-style # nixfmt
       nil # nix lsp
+      lua-language-server
+
+      tree-sitter-grammars.tree-sitter-lua
+      tree-sitter-grammars.tree-sitter-nix
     ];
 
     plugins =
@@ -51,16 +55,21 @@ in
       [
         lazy-nvim
         gruvbox-nvim
-
+        lazydev-nvim
+        fidget-nvim # notifications
+        vim-illuminate
         nvim-lspconfig
 
-        pkgs.vimPlugins.nvim-cmp
-        pkgs.vimPlugins.cmp-nvim-lsp
-        pkgs.vimPlugins.cmp-git
-        pkgs.vimPlugins.cmp-cmdline
-        pkgs.vimPlugins.cmp-buffer
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-git
+        cmp-cmdline
+        cmp-buffer
 
-        nvim-treesitter.withAllGrammars
+        nvim-treesitter-parsers.nix
+        (nvim-treesitter.withPlugins (p: [
+          p.nix
+        ]))
       ]
       ++ [
         lazy-nix-helper-nvim
@@ -92,4 +101,7 @@ in
     source = ./nvim;
     recursive = true;
   };
+
+  xdg.dataFile."nvim/lazy/nvim-treesitter/parser/nix.so".source =
+    "${pkgs.vimPlugins.nvim-treesitter-parsers.nix}/parser/nix.so";
 }

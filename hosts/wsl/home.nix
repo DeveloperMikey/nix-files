@@ -21,6 +21,5 @@
   };
 
   home.stateVersion = "25.05"; # No changing
-
   programs.home-manager.enable = true;
 }
