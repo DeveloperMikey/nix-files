@@ -1,24 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
-{
+{pkgs, ...}: {
   imports = [
-
   ];
 
   wsl.enable = true;
   wsl.defaultUser = "mike";
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.mike = ./home.nix;
-    backupFileExtension = "backup";
-  };
 
   nix.settings.experimental-features = "nix-command flakes";
 

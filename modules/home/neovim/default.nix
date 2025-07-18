@@ -1,107 +1,158 @@
 {
-  pkgs,
-  config,
+  inputs,
   lib,
   ...
-}:
+}: {
+  imports = [inputs.nvf.homeManagerModules.default];
 
-let
-  lazy-nix-helper-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "lazy-nix-helper.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "b-src";
-      repo = "lazy-nix-helper.nvim";
-      rev = "22d0f4d737104cba6c18ba9ca3ff1db5160c67b5";
-      hash = "sha256-4DyuBMp83vM344YabL2SklQCg6xD7xGF5CvQP2q+W7A=";
+  programs.nvf = {
+    enable = true;
+    settings = {
+      vim = {
+        viAlias = true;
+        vimAlias = true;
+
+        keymaps = [
+          {
+            key = "-";
+            mode = "n";
+            action = "<CMD>Oil<CR>";
+            silent = true;
+            desc = "Open parent directory in Oil";
+          }
+        ];
+
+        lsp = {
+          enable = true;
+          formatOnSave = true;
+          inlayHints.enable = true;
+          lspconfig = {
+            enable = true;
+          };
+          otter-nvim.enable = true;
+          nvim-docs-view.enable = true;
+        };
+
+        theme = {
+          enable = true;
+          name = "gruvbox";
+          style = "dark";
+        };
+
+        languages = {
+          enableFormat = true;
+          enableExtraDiagnostics = true;
+
+          nix = {
+            enable = true;
+            lsp.server = "nil";
+            treesitter.enable = true;
+          };
+
+          lua = {
+            enable = true;
+            lsp.lazydev.enable = true;
+            treesitter.enable = true;
+          };
+        };
+
+        autocomplete.blink-cmp = {
+          enable = true;
+          friendly-snippets.enable = true;
+          mappings.confirm = "<C-CR>";
+        };
+
+        debugger = {
+          nvim-dap = {
+            enable = true;
+            ui.enable = true;
+          };
+        };
+
+        visuals = {
+          nvim-web-devicons.enable = true;
+          nvim-cursorline.enable = true;
+          cinnamon-nvim.enable = true;
+          fidget-nvim.enable = true;
+
+          highlight-undo.enable = true;
+          indent-blankline.enable = true;
+        };
+
+        autopairs.nvim-autopairs.enable = true;
+
+        statusline = {
+          lualine = {
+            enable = true;
+            theme = "gruvbox";
+          };
+        };
+
+        snippets.luasnip.enable = true;
+
+        tabline = {
+          nvimBufferline = {
+            enable = true;
+            mappings = {
+              closeCurrent = "<leader>c";
+              cycleNext = "<leader>l";
+              cyclePrevious = "<leader>h";
+              moveNext = "<leader>k";
+              movePrevious = "<leader>j";
+            };
+            setupOpts = {
+              options = {
+                always_show_bufferline = false;
+                name_formatter = lib.generators.mkLuaInline (builtins.readFile ./bufferline_name_formatter.lua);
+              };
+            };
+          };
+        };
+
+        utility = {
+          oil-nvim.enable = true;
+        };
+
+        #treesitter.context.enable = true;
+        treesitter = {
+          enable = true;
+          indent.enable = false;
+        };
+
+        git = {
+          enable = true;
+          gitsigns.enable = true;
+          gitsigns.codeActions.enable = false;
+          neogit.enable = true;
+        };
+
+        notes = {
+          todo-comments.enable = true;
+        };
+
+        utility = {
+          diffview-nvim.enable = true;
+        };
+
+        ui = {
+          borders.enable = true;
+          noice.enable = true;
+          colorizer.enable = true;
+          illuminate.enable = true;
+          breadcrumbs = {
+            enable = true;
+          };
+        };
+
+        session = {
+          nvim-session-manager.enable = true;
+        };
+
+        notify.nvim-notify.enable = true;
+        projects.project-nvim.enable = true;
+        dashboard.alpha.enable = true;
+        telescope.enable = true;
+      };
     };
   };
-
-  sanitizePluginName =
-    input:
-    let
-      name = lib.strings.getName input;
-      vimplugin_removed = lib.strings.removePrefix "vimplugin-" name;
-      luajit_removed = lib.strings.removePrefix "luajit2.1-" vimplugin_removed;
-      lua5_1_removed = lib.strings.removePrefix "lua5.1-" luajit_removed;
-      result = lib.strings.removeSuffix "-scm" lua5_1_removed;
-    in
-    result;
-
-  pluginList =
-    plugins:
-    lib.strings.concatMapStrings (
-      plugin: "  [\"${sanitizePluginName plugin.name}\"] = \"${plugin.outPath}\",\n"
-    ) plugins;
-in
-{
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-
-    extraPackages = with pkgs; [
-      nixfmt-rfc-style # nixfmt
-      nil # nix lsp
-      lua-language-server
-
-      tree-sitter-grammars.tree-sitter-lua
-      tree-sitter-grammars.tree-sitter-nix
-    ];
-
-    plugins =
-      with pkgs.vimPlugins;
-      [
-        lazy-nvim
-        gruvbox-nvim
-        lazydev-nvim
-        fidget-nvim # notifications
-        vim-illuminate
-        nvim-lspconfig
-
-        nvim-cmp
-        cmp-nvim-lsp
-        cmp-git
-        cmp-cmdline
-        cmp-buffer
-
-        nvim-treesitter-parsers.nix
-        (nvim-treesitter.withPlugins (p: [
-          p.nix
-        ]))
-      ]
-      ++ [
-        lazy-nix-helper-nvim
-      ];
-
-    extraLuaConfig = ''
-      local plugins = {
-        ${pluginList config.programs.neovim.plugins}
-      }
-      local lazy_nix_helper_path = "${lazy-nix-helper-nvim}"
-
-      -- add the Lazy Nix Helper plugin to the vim runtime
-      vim.opt.rtp:prepend(lazy_nix_helper_path)
-
-      -- call the Lazy Nix Helper setup function
-      local non_nix_lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-      local lazy_nix_helper_opts = { lazypath = non_nix_lazypath, input_plugin_table = plugins }
-      require("lazy-nix-helper").setup(lazy_nix_helper_opts)
-
-      -- get the lazypath from Lazy Nix Helper
-      local lazypath = require("lazy-nix-helper").lazypath()
-      vim.opt.rtp:prepend(lazypath)
-
-      require("init")
-    '';
-  };
-
-  xdg.configFile."nvim/lua" = {
-    source = ./nvim;
-    recursive = true;
-  };
-
-  xdg.dataFile."nvim/lazy/nvim-treesitter/parser/nix.so".source =
-    "${pkgs.vimPlugins.nvim-treesitter-parsers.nix}/parser/nix.so";
 }
