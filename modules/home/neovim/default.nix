@@ -59,7 +59,7 @@
         autocomplete.blink-cmp = {
           enable = true;
           friendly-snippets.enable = true;
-          mappings.confirm = "<C-CR>";
+          #mappings.confirm = "<C-CR>";
         };
 
         debugger = {
@@ -94,11 +94,11 @@
           nvimBufferline = {
             enable = true;
             mappings = {
-              closeCurrent = "<leader>c";
-              cycleNext = "<leader>l";
-              cyclePrevious = "<leader>h";
-              moveNext = "<leader>k";
-              movePrevious = "<leader>j";
+              closeCurrent = "<leader>cc";
+              cycleNext = "<leader>ll";
+              cyclePrevious = "<leader>hh";
+              moveNext = "<leader>kk";
+              movePrevious = "<leader>jj";
             };
             setupOpts = {
               options = {
@@ -146,6 +146,12 @@
 
         session = {
           nvim-session-manager.enable = true;
+        };
+
+        binds = {
+          whichKey.enable = true;
+          cheatsheet.enable = true;
+          hardtime-nvim.enable = true;
         };
 
         notify.nvim-notify.enable = true;

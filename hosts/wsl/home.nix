@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../modules/home/neovim
   ];
@@ -19,6 +21,10 @@
       enable = true;
     };
   };
+
+  home.packages = with pkgs; [
+    fastfetch
+  ];
 
   home.stateVersion = "25.05"; # No changing
   programs.home-manager.enable = true;
