@@ -10,36 +10,33 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      nixos-wsl,
-      home-manager,
-      nvf,
-      ...
-    }@inputs:
-
-    {
-      nixosConfigurations = {
-        wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            nixos-wsl.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mike = ./hosts/wsl/home.nix;
-                backupFileExtension = "backup";
-                extraSpecialArgs = { inherit inputs; };
-              };
-            }
-            ./hosts/wsl/default.nix
-          ];
-        };
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-wsl,
+    home-manager,
+    nvf,
+    ...
+  } @ inputs: {
+    nixosConfigurations = {
+      wsl = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          nixos-wsl.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.mike = ./hosts/wsl/home.nix;
+              backupFileExtension = "hm-backup";
+              extraSpecialArgs = {inherit inputs;};
+            };
+          }
+          ./hosts/wsl/default.nix
+        ];
       };
     };
+  };
 }

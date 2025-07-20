@@ -1,25 +1,13 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../../modules/home/neovim
+    ../../modules/home/cli-utils.nix
+    ../../modules/home/firefox
   ];
 
-  home.username = "mike";
-  home.homeDirectory = "/home/mike";
-
-  programs = {
-    git = {
-      enable = true;
-      userName = "Mihkel Mäemees";
-      userEmail = "maemeesmihkel@gmail.com";
-    };
-
-    gh = {
-      enable = true;
-    };
+  home = {
+    username = "mike";
+    homeDirectory = "/home/mike";
   };
 
   home.packages = with pkgs; [

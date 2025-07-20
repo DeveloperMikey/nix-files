@@ -1,4 +1,5 @@
 {
+  pkgs,
   inputs,
   lib,
   ...
@@ -11,6 +12,15 @@
       vim = {
         viAlias = true;
         vimAlias = true;
+
+        extraPlugins = {
+          smear-cursor = {
+            package = pkgs.vimPlugins.smear-cursor-nvim;
+            setup = ''
+              require('smear_cursor').enabled = true
+            '';
+          };
+        };
 
         keymaps = [
           {
@@ -29,6 +39,8 @@
           lspconfig = {
             enable = true;
           };
+          trouble.enable = true;
+          lightbulb.enable = true;
           otter-nvim.enable = true;
           nvim-docs-view.enable = true;
         };
@@ -145,13 +157,24 @@
         };
 
         session = {
-          nvim-session-manager.enable = true;
+          nvim-session-manager = {
+            enable = true;
+            setupOpts.autoload_mode = "GitSession";
+          };
         };
 
         binds = {
           whichKey.enable = true;
           cheatsheet.enable = true;
           hardtime-nvim.enable = true;
+        };
+
+        diagnostics = {
+          enable = true;
+          config = {
+            virtual_text = true;
+          };
+          nvim-lint.enable = true;
         };
 
         notify.nvim-notify.enable = true;
