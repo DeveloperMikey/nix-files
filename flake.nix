@@ -2,8 +2,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/dfcd5b901dbab46c9c6e80b265648481aafb01f8";
 
+    disko.url = "github:nix-community/disko/545aba02960caa78a31bd9a8709a0ad4b6320a5c";
+    disko.inputs.nixpkgs.follow = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/07571773a960c1acbc25a3c7b57361b94f2d8dd5";
     home-manager.url = "github:nix-community/home-manager/2e00ed310c218127e02ffcf28ddd4e0f669fde3e";
+
     nvf = {
       url = "github:notashelf/nvf/fe874acd37f55dd5043a06fd2284300133782cfa";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,6 +16,7 @@
   outputs = {
     self,
     nixpkgs,
+    disko,
     nixos-wsl,
     home-manager,
     nvf,
@@ -41,6 +45,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           {
             home-manager = {
