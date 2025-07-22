@@ -41,7 +41,7 @@
           ./hosts/wsl/default.nix
         ];
       };
-      laptop = nixpkgs.lib.nixosSystem {
+      thinker = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
@@ -51,12 +51,12 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.mike = ./hosts/laptop/home.nix;
+              users.mike = ./hosts/thinker/home.nix;
               backupFileExtension = "backup";
               extraSpecialArgs = {inherit inputs;};
             };
           }
-          ./hosts/laptop/default.nix
+          ./hosts/thinker/default.nix
         ];
       };
     };
