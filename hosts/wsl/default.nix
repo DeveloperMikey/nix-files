@@ -9,11 +9,10 @@
 
   networking.hostName = "wsl";
 
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment.systemPackages = with pkgs; [
     wget
-    nixfmt-rfc-style
   ];
 
   programs.nix-ld.enable = true;
