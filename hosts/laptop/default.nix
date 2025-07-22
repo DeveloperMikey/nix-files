@@ -19,6 +19,8 @@
   users.users = {
     mike = {
       isNormalUser = true;
+      extraGroups = ["networkmanager" "wheel" "input" "uinput"];
+      initialPassword = "root";
     };
   };
 
