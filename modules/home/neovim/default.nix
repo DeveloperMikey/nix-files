@@ -20,6 +20,12 @@
               require('smear_cursor').enabled = true
             '';
           };
+          neoscroll = {
+            package = pkgs.vimPlugins.neoscroll-nvim;
+            setup = ''
+              require('neoscroll').setup({})
+            '';
+          };
         };
 
         keymaps = [
@@ -65,6 +71,12 @@
             enable = true;
             lsp.lazydev.enable = true;
             treesitter.enable = true;
+          };
+
+          rust = {
+            enable = true;
+            crates.enable = true;
+            lsp.package = ["rust-analyzer"];
           };
         };
 
@@ -123,6 +135,11 @@
 
         utility = {
           oil-nvim.enable = true;
+          oil-nvim.setupOpts = {
+            view_options = {
+              show_hidden = true;
+            };
+          };
         };
 
         #treesitter.context.enable = true;
