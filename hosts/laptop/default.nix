@@ -7,10 +7,16 @@
 
   disko.devices.disk.main.device = "/dev/nvme0n1";
 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   networking.hostName = "thinker";
   networking.networkmanager.enable = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  users.users = {
+    mike = {
+      isNormalUser = true;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     wget
