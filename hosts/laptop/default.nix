@@ -1,9 +1,13 @@
 {pkgs, ...}: {
   imports = [
+    ./hardware-configuration.nix
     ./disko-config.nix
     ../../modules/fish.nix
     ../../modules/garbage-collection.nix
   ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   disko.devices.disk.main.device = "/dev/nvme0n1";
 
