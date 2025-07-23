@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     quickshell = {
       url = "github:quickshell-mirror/quickshell/db77c71c216530159c2dcf5b269ebb4706b2e2dd";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +28,6 @@
     home-manager,
     nvf,
     quickshell,
-    stylix,
     ...
   } @ inputs: {
     nixosConfigurations = {

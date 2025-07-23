@@ -22,12 +22,6 @@
   networking.hostName = "thinker";
   networking.networkmanager.enable = true;
 
-  environment.sessionVariables = {
-    #QMLLS_BUILD_DIRS = "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${inputs.quickshell.packages.x86_64-linux.default}/lib/qt-6/qml/";
-    #QML_IMPORT_PATH = "$PWD/.nixos/modules/home/quickshell/config";
-    #QML2_IMPORT_PATH = "$PWD/.nixos/modules/home/quickshell/config";
-  };
-
   users.users = {
     mike = {
       isNormalUser = true;

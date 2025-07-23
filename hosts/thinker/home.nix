@@ -5,6 +5,7 @@
     ../../modules/home/hyprland.nix
     ../../modules/home/firefox
     ../../modules/home/quickshell
+    ../../modules/home/theme.nix
   ];
 
   home = {
@@ -15,6 +16,7 @@
   home.packages = with pkgs; [
     fastfetch
     vesktop
+    obs-studio
   ];
 
   home.stateVersion = "25.05"; # No changing

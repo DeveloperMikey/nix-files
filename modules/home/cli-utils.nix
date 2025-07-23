@@ -9,6 +9,7 @@
     poppler # pdf
     btop
     eza
+    btop
   ];
 
   programs = {
