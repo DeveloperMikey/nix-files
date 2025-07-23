@@ -7,6 +7,11 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/07571773a960c1acbc25a3c7b57361b94f2d8dd5";
     home-manager.url = "github:nix-community/home-manager/2e00ed310c218127e02ffcf28ddd4e0f669fde3e";
 
+    quickshell = {
+      url = "github:quickshell-mirror/quickshell/db77c71c216530159c2dcf5b269ebb4706b2e2dd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvf = {
       url = "github:notashelf/nvf/fe874acd37f55dd5043a06fd2284300133782cfa";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +25,7 @@
     nixos-wsl,
     home-manager,
     nvf,
+    quickshell,
     ...
   } @ inputs: {
     nixosConfigurations = {

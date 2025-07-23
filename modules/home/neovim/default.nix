@@ -13,6 +13,15 @@
         viAlias = true;
         vimAlias = true;
 
+        extraPackages = with pkgs; [
+          kdePackages.qtdeclarative
+        ];
+
+        options = {
+          shiftwidth = 4;
+          tabstop = 4;
+        };
+
         extraPlugins = {
           smear-cursor = {
             package = pkgs.vimPlugins.smear-cursor-nvim;
@@ -26,6 +35,14 @@
               require('neoscroll').setup({})
             '';
           };
+        };
+
+        luaConfigRC = {
+          lspconfig = ''
+            require("lspconfig").qmlls.setup {
+              cmd = {"qmlls"}
+            }
+          '';
         };
 
         keymaps = [
@@ -146,6 +163,9 @@
         treesitter = {
           enable = true;
           indent.enable = false;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            qmljs
+          ];
         };
 
         git = {
