@@ -2,6 +2,8 @@
   imports = [
     ../../modules/home/neovim
     ../../modules/home/cli-utils.nix
+    ../../modules/home/hyprland.nix
+    ../../modules/home/firefox
   ];
 
   home = {

@@ -4,6 +4,8 @@
     ./disko-config.nix
     ../../modules/fish.nix
     ../../modules/garbage-collection.nix
+    ../../modules/hyprland.nix
+    ../../modules/greetd.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
