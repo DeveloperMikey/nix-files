@@ -1,11 +1,18 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/dfcd5b901dbab46c9c6e80b265648481aafb01f8";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
 
-    disko.url = "github:nix-community/disko/545aba02960caa78a31bd9a8709a0ad4b6320a5c";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/07571773a960c1acbc25a3c7b57361b94f2d8dd5";
-    home-manager.url = "github:nix-community/home-manager/2e00ed310c218127e02ffcf28ddd4e0f669fde3e";
+    disko = {
+      url = "github:nix-community/disko/545aba02960caa78a31bd9a8709a0ad4b6320a5c";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     quickshell = {
       url = "github:quickshell-mirror/quickshell/db77c71c216530159c2dcf5b269ebb4706b2e2dd";
@@ -26,6 +33,7 @@
     home-manager,
     nvf,
     quickshell,
+    stylix,
     ...
   } @ inputs: {
     nixosConfigurations = {
