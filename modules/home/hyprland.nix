@@ -104,6 +104,10 @@
       };
     };
     hyprpolkitagent.enable = true;
+
+    dunst = {
+      enable = true;
+    };
   };
 
   xdg.portal.enable = true;
