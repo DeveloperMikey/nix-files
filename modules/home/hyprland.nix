@@ -105,4 +105,6 @@
     };
     hyprpolkitagent.enable = true;
   };
+
+  xdg.portal.enable = true;
 }
