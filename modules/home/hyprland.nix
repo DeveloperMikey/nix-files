@@ -63,7 +63,7 @@
       };
       xwayland.force_zero_scaling = true;
       input = {
-        kb_options = "caps:swapescape";
+        kb_options = "caps:escape";
       };
     };
   };
