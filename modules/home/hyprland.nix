@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.kitty.enable = true;
   programs.wofi.enable = true;
 
@@ -109,6 +109,10 @@
       enable = true;
     };
   };
+
+  home.packages = [
+    pkgs.libnotify
+  ];
 
   xdg.portal.enable = true;
 }
