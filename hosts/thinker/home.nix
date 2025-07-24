@@ -16,6 +16,7 @@
     fastfetch
     vesktop
     obs-studio
+    kdePackages.dolphin
   ];
 
   home.stateVersion = "25.05"; # No changing

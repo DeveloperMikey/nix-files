@@ -1,6 +1,8 @@
 {pkgs, ...}: {
-  programs.kitty.enable = true;
-  programs.wofi.enable = true;
+  programs = {
+    kitty.enable = true;
+    wofi.enable = true;
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
