@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
@@ -32,7 +28,6 @@
 
   environment.systemPackages = with pkgs; [
     wget
-    inputs.quickshell.packages.x86_64-linux.default
   ];
 
   zramSwap = {enable = true;};

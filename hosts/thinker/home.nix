@@ -4,7 +4,6 @@
     ../../modules/home/cli-utils.nix
     ../../modules/home/hyprland.nix
     ../../modules/home/firefox
-    ../../modules/home/quickshell
     ../../modules/home/theme.nix
   ];
 
