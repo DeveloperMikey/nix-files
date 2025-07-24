@@ -3,9 +3,10 @@ import Quickshell
 import QtQuick
 
 Singleton {
-    readonly property string backgroundPrimary: "#0E0F10"
+    readonly property string backgroundPrimary: "#282828"
 
-    readonly property string textPrimary: "#F0F1E0"
+    readonly property string textPrimary: "#fbf1c7"
+
     readonly property FontStuff font: FontStuff {}
 
     component FontFamily: QtObject {

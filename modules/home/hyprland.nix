@@ -53,6 +53,14 @@
         gaps_in = 2;
         gaps_out = 3;
         border_size = 1;
+        "col.inactive_border" = "rgb(282828)";
+        "col.active_border" = "rgb(928374)";
+      };
+      workspace = [
+        "w[t1], gapsin:0, gapsout:0, border:0"
+      ];
+      decoration = {
+        rounding = 5;
       };
     };
   };
