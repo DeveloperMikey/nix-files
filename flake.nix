@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/release-25.05";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     disko = {
       url = "github:nix-community/disko/545aba02960caa78a31bd9a8709a0ad4b6320a5c";
@@ -22,6 +23,7 @@
     nixos-wsl,
     home-manager,
     nvf,
+    nixos-hardware,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -47,6 +49,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           {

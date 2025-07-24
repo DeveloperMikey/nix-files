@@ -35,5 +35,9 @@
     yazi = {
       enable = true;
     };
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
   };
 }
