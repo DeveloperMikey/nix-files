@@ -60,6 +60,8 @@
       ];
       decoration = {
         rounding = 5;
+        blur.enabled = false;
+        shadow.enabled = false;
       };
       xwayland.force_zero_scaling = true;
       input = {
