@@ -70,4 +70,17 @@
       };
     };
   };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = [
+        (toString
+          ../../wallpapers/E14-Gen-4)
+      ];
+      wallpaper = [
+        "eDP-1,${toString ../../wallpapers/E14-Gen-4}"
+      ];
+    };
+  };
 }
