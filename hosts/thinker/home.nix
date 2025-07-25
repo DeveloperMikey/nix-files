@@ -2,9 +2,10 @@
   imports = [
     ../../modules/home/neovim
     ../../modules/home/cli-utils.nix
-    ../../modules/home/hyprland.nix
     ../../modules/home/firefox
     ../../modules/home/theme.nix
+    ../../modules/home/kitty.nix
+    ../../modules/home/hyprland.nix
   ];
 
   home = {

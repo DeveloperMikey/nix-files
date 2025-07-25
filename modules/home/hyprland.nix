@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   programs = {
-    kitty.enable = true;
     wofi.enable = true;
   };
 

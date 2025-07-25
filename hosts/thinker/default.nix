@@ -4,8 +4,10 @@
     ./disko-config.nix
     ../../modules/fish.nix
     ../../modules/garbage-collection.nix
-    ../../modules/hyprland.nix
+    ../../modules/fonts.nix
+    ../../modules/sunshine.nix
     ../../modules/greetd.nix
+    ../../modules/hyprland.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -14,6 +16,7 @@
   disko.devices.disk.main.device = "/dev/nvme0n1";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "thinker";
   networking.networkmanager.enable = true;
