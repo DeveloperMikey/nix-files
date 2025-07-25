@@ -14,6 +14,10 @@
       url = "github:notashelf/nvf/fe874acd37f55dd5043a06fd2284300133782cfa";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    shelm = {
+      url = "path:/home/mike/Projects/shelm";
+    };
   };
 
   outputs = {
@@ -24,6 +28,7 @@
     home-manager,
     nvf,
     nixos-hardware,
+    shelm,
     ...
   } @ inputs: {
     nixosConfigurations = {

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs = {
     wofi.enable = true;
   };
@@ -10,6 +14,7 @@
 
       monitor = ",highres,auto,1,bitdepth,10";
       exec-once = [
+        "${(toString inputs.shelm.packages.x86_64-linux.default)}/bin/shelm"
       ];
       bind =
         [
