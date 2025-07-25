@@ -10,7 +10,6 @@
 
       monitor = ",highres,auto,1,bitdepth,10";
       exec-once = [
-        "quickshell"
       ];
       bind =
         [
@@ -56,7 +55,8 @@
         gaps_out = 3;
         border_size = 1;
         "col.inactive_border" = "rgb(282828)";
-        "col.active_border" = "rgb(928374)";
+        #"col.active_border" = "rgb(928374)";
+        "col.active_border" = "rgb(d65d0e)";
       };
       workspace = [
         "w[t1], gapsin:0, gapsout:0, border:0"
@@ -69,6 +69,9 @@
       xwayland.force_zero_scaling = true;
       input = {
         kb_options = "caps:escape";
+      };
+      animations = {
+        enabled = false;
       };
     };
   };
@@ -114,6 +117,7 @@
 
   home.packages = [
     pkgs.libnotify
+    pkgs.wl-clipboard
   ];
 
   xdg.portal.enable = true;
