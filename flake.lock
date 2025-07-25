@@ -222,6 +222,27 @@
         "type": "github"
       }
     },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753090730,
+        "narHash": "sha256-QG14m53ZGp2Gk7xD2Q+Tf7RYCKfk/BYRaBtX3X4IKbc=",
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "rev": "db77c71c216530159c2dcf5b269ebb4706b2e2dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "rev": "db77c71c216530159c2dcf5b269ebb4706b2e2dd",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -229,7 +250,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
-        "nvf": "nvf"
+        "nvf": "nvf",
+        "quickshell": "quickshell"
       }
     },
     "systems": {

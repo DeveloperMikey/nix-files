@@ -14,6 +14,11 @@
       url = "github:notashelf/nvf/fe874acd37f55dd5043a06fd2284300133782cfa";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    quickshell = {
+      url = "github:quickshell-mirror/quickshell/db77c71c216530159c2dcf5b269ebb4706b2e2dd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -24,6 +29,7 @@
     home-manager,
     nvf,
     nixos-hardware,
+    quickshell,
     ...
   } @ inputs: {
     nixosConfigurations = {

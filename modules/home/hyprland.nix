@@ -10,6 +10,7 @@
 
       monitor = ",highres,auto,1,bitdepth,10";
       exec-once = [
+        "quickshell"
       ];
       bind =
         [
