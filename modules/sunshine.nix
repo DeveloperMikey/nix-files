@@ -1,6 +1,6 @@
-{pkgs, ...}: {
+{...}: {
   services.sunshine = {
-    enable = true;
+    #enable = true;
     #autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
