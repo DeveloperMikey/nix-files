@@ -22,4 +22,10 @@
     name = "Capitaine Cursors (Gruvbox)";
     size = 16;
   };
+
+  home.packages = with pkgs; [
+    gruvbox-plus-icons
+    kdePackages.qtsvg
+    material-symbols
+  ];
 }

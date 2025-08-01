@@ -2,7 +2,17 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  updateMicLed = pkgs.writeShellScript "update-mic-led" ''
+    micStatus=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
+    brightnessctl -d platform::micmute set "$micStatus"
+  '';
+
+  toggleMic = pkgs.writeShellScript "toggle-mic" ''
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    ${updateMicLed}
+  '';
+in {
   programs = {
     wofi.enable = true;
   };
@@ -34,6 +44,8 @@
           "$mod Shift, right, movewindow, r"
           "$mod Shift, up, movewindow, u"
           "$mod Shift, down, movewindow, d"
+
+          ", print, exec, grim -g \"$(slurp) -d\" - | wl-copy"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -46,6 +58,16 @@
             )
             9)
         );
+      bindl = [
+        #", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioRaiseVolume, global, shelm:raise_volume"
+        #", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioLowerVolume, global, shelm:lower_volume"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, ${toggleMic}"
+        ", XF86MonBrightnessUp, exec, brightnessctl set 3%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 3%-"
+      ];
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
@@ -54,6 +76,7 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         vfr = true;
+        vrr = 1;
       };
       general = {
         gaps_in = 2;
@@ -74,10 +97,9 @@
       xwayland.force_zero_scaling = true;
       input = {
         kb_options = "caps:escape";
+        repeat_delay = 200;
       };
-      animations = {
-        enabled = false;
-      };
+      animations.enabled = false;
     };
   };
 
@@ -106,7 +128,7 @@
           ];
         };
         sunset = {
-          calendar = "*-*-* 19:00:00";
+          calendar = "*-*-* 21:00:00";
           requests = [
             ["temperature" "3500"]
           ];
@@ -120,9 +142,16 @@
     };
   };
 
-  home.packages = [
-    pkgs.libnotify
-    pkgs.wl-clipboard
+  home.packages = with pkgs; [
+    libnotify
+    wl-clipboard
+    slurp
+    grim
+    hyprpicker
+    brightnessctl
+    wf-recorder
+    wl-clipboard
+    wl-clip-persist
   ];
 
   xdg.portal.enable = true;

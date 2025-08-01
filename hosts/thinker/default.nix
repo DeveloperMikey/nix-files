@@ -2,12 +2,10 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
-    ../../modules/fish.nix
-    ../../modules/garbage-collection.nix
-    ../../modules/fonts.nix
-    ../../modules/sunshine.nix
+    ../../modules/general
     ../../modules/greetd.nix
     ../../modules/hyprland.nix
+    ../../modules/gaming
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -15,11 +13,7 @@
 
   disko.devices.disk.main.device = "/dev/nvme0n1";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nixpkgs.config.allowUnfree = true;
-
   networking.hostName = "thinker";
-  networking.networkmanager.enable = true;
 
   users.users = {
     mike = {
@@ -34,10 +28,6 @@
   ];
 
   zramSwap = {enable = true;};
-
-  programs.nix-ld.enable = true;
-
-  users.defaultUserShell = pkgs.fish;
 
   system.stateVersion = "24.11"; # No changing
 }

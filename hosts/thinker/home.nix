@@ -18,6 +18,9 @@
     vesktop
     obs-studio
     kdePackages.dolphin
+    overskride
+    networkmanagerapplet
+    bitwarden-desktop
   ];
 
   home.stateVersion = "25.05"; # No changing
