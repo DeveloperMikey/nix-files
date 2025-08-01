@@ -1,8 +1,14 @@
-{...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services = {
     thermald.enable = true;
     upower.enable = true;
+    power-profiles-daemon.enable = true;
 
+    /*
     tlp = {
       enable = true;
       settings = {
@@ -21,7 +27,36 @@
         STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
       };
     };
+    */
+    udev = {
+      enable = true;
+      extraRules = ''
+        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
+        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance"
+      '';
+    };
   };
 
+  environment.systemPackages = with pkgs; [
+    powertop
+  ];
+
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+  '';
+
+  systemd.services.battery-limit = {
+    enable = true;
+    serviceConfig = {
+      Restart = "on-failure";
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "set-battery-limits" ''
+        echo 80 >> /sys/class/power_supply/BAT0/charge_control_end_threshold
+        echo 70 >> /sys/class/power_supply/BAT0/charge_control_start_threshold
+      '';
+    };
+  };
+
+  powerManagement.powertop.enable = true;
   powerManagement.enable = true;
 }

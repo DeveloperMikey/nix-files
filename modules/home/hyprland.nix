@@ -28,7 +28,7 @@ in {
       ];
       bind =
         [
-          "$mod, Return, exec, kitty"
+          "$mod, Return, exec, ${inputs.app2unit.packages.${pkgs.system}.default}/bin/app2unit kitty"
           "$mod Shift, Q, killactive"
           "$mod, Tab, exec, wofi --show drun"
           "$mod, V, togglefloating"

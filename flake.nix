@@ -16,7 +16,13 @@
     };
 
     shelm = {
-      url = "path:/home/mike/Projects/shelm";
+      url = "github:DeveloperMikey/shelm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    app2unit = {
+      url = "github:soramanew/app2unit";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -29,6 +35,7 @@
     nvf,
     nixos-hardware,
     shelm,
+    app2unit,
     ...
   } @ inputs: {
     nixosConfigurations = {
