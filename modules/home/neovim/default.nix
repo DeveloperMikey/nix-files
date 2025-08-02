@@ -20,6 +20,7 @@
         options = {
           shiftwidth = 4;
           tabstop = 4;
+          exrc = true;
         };
 
         extraPlugins = {
@@ -42,6 +43,9 @@
             require("lspconfig").qmlls.setup {
               cmd = {"qmlls"}
             }
+          '';
+          exrc = ''
+            vim.o.exrc = true
           '';
         };
 
