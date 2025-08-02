@@ -17,6 +17,9 @@
       enable = true;
       userName = "Mihkel Mäemees";
       userEmail = "maemeesmihkel@gmail.com";
+      extraConfig = {
+        pull.rebase = false;
+      };
     };
 
     gh = {
