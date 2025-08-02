@@ -20,6 +20,7 @@
         options = {
           shiftwidth = 4;
           tabstop = 4;
+          exrc = true;
         };
 
         extraPlugins = {
@@ -43,6 +44,9 @@
               cmd = {"qmlls"}
             }
           '';
+          exrc = ''
+            vim.o.exrc = true
+          '';
         };
 
         keymaps = [
@@ -52,6 +56,23 @@
             action = "<CMD>Oil<CR>";
             silent = true;
             desc = "Open parent directory in Oil";
+          }
+          {
+            key = "<leader>ca";
+            mode = "n";
+            action = ''
+              function()
+                local current = vim.api.nvim_get_current_buf()
+                for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                  if vim.api.nvim_buf_is_loaded(buf) and buf ~= current then
+                    vim.api.nvim_buf_delete(buf, {})
+                  end
+                end
+              end
+            '';
+            lua = true;
+            silent = true;
+            desc = "Closes all other buffers";
           }
         ];
 

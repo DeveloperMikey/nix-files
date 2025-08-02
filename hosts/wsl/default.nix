@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
-    ../../modules/fish.nix
-    ../../modules/garbage-collection.nix
+    ../../modules/general/fish.nix
+    ../../modules/general/garbage-collection.nix
   ];
 
   wsl.enable = true;
