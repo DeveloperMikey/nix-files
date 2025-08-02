@@ -68,6 +68,10 @@
           command nix $argv
         end
       end
+
+      function devshell
+        nix flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#$argv[1]"
+      end
     '';
   };
 
