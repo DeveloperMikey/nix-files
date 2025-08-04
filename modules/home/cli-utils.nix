@@ -42,5 +42,8 @@
       enable = true;
       enableFishIntegration = true;
     };
+    imv = {
+      enable = true;
+    };
   };
 }

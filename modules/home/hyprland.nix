@@ -45,7 +45,8 @@ in {
           "$mod Shift, up, movewindow, u"
           "$mod Shift, down, movewindow, d"
 
-          ", print, exec, grim -g \"$(slurp) -d\" - | wl-copy"
+          ", print, exec, grim -g \"$(slurp)\" - | wl-copy"
+          "$mod Shift, Z, exec, bash -c 'v=$(hyprctl -j getoption cursor:zoom_factor | jq \".float\" | cut -d\".\" -f1); [ \"$v\" = \"1\" ] && hyprctl -q keyword cursor:zoom_factor 3 || hyprctl -q keyword cursor:zoom_factor 1'"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
