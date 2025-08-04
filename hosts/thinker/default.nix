@@ -2,13 +2,13 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ../../modules/limine.nix
     ../../modules/general
     ../../modules/greetd.nix
     ../../modules/hyprland.nix
     ../../modules/gaming
   ];
 
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   disko.devices.disk.main.device = "/dev/nvme0n1";
