@@ -156,4 +156,5 @@ in {
   ];
 
   xdg.portal.enable = true;
+  home.pointerCursor.hyprcursor.enable = true;
 }

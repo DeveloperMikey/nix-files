@@ -41,28 +41,44 @@
     powertop
   ];
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-  '';
+  systemd = {
+    sleep.extraConfig = ''
+      HibernateDelaySec=30m
+    '';
 
-  systemd.services.battery-stuff = {
-    enable = true;
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      Restart = "on-failure";
-      Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "set-battery-limits" ''
-        echo 80 >> /sys/class/power_supply/BAT0/charge_control_end_threshold
-        echo 70 >> /sys/class/power_supply/BAT0/charge_control_start_threshold
+    services.set-power-charge-thresholds = {
+      enable = true;
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Restart = "on-failure";
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "set-battery-limits" ''
+          echo 80 >> /sys/class/power_supply/BAT0/charge_control_end_threshold
+          echo 70 >> /sys/class/power_supply/BAT0/charge_control_start_threshold
+        '';
+      };
+    };
 
-        AC_STATUS=$(cat /sys/class/power_supply/AC/online 2>/dev/null)
+    services.set-power-profile = {
+      enable = true;
+      wantedBy = ["multi-user.target"];
+      unitConfig = {
+        After = ["power-profiles-daemon.service"];
+        Requires = ["power-profiles-daemon.service"];
+      };
+      serviceConfig = {
+        Restart = "on-failure";
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "set-power-profile" ''
+          AC_STATUS=$(cat /sys/class/power_supply/AC/online 2>/dev/null)
 
-        if [ "$AC_STATUS" = "1" ]; then
-            ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance
-        else
-            ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver
-        fi
-      '';
+          if [ "$AC_STATUS" = "1" ]; then
+              ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance
+          else
+              ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver
+          fi
+        '';
+      };
     };
   };
 

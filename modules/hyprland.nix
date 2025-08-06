@@ -1,4 +1,12 @@
-{...}: {
-  programs.hyprland.enable = true;
-  programs.hyprland.withUWSM = true;
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  programs = {
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
+  };
 }

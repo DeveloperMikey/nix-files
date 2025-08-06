@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   qt = {
     enable = true;
-    platformTheme.name = "kvantum";
+    platformTheme.name = "qtct";
     style = {
-      name = "Gruvbox-Dark-Brown";
+      name = "kvantum"; #"Gruvbox-Dark-Brown";
       package = pkgs.gruvbox-kvantum;
     };
   };
