@@ -101,6 +101,9 @@ in {
         repeat_delay = 200;
       };
       animations.enabled = false;
+      debug = {
+        full_cm_proto = true;
+      };
     };
   };
 

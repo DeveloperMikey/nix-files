@@ -6,6 +6,7 @@
     ../../modules/home/theme.nix
     ../../modules/home/kitty.nix
     ../../modules/home/hyprland.nix
+    ../../modules/home/gaming.nix
   ];
 
   home = {

@@ -45,5 +45,6 @@
     imv = {
       enable = true;
     };
+    fish.enable = true;
   };
 }
