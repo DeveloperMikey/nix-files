@@ -10,6 +10,8 @@
     btop
     eza
     btop
+    unrar
+    sl
   ];
 
   programs = {
@@ -38,10 +40,7 @@
     yazi = {
       enable = true;
     };
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+
     imv = {
       enable = true;
     };

@@ -24,6 +24,15 @@
       url = "github:soramanew/app2unit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sls-steam = {
+      url = "github:AceSLS/SLSsteam";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
+    };
   };
 
   outputs = {
@@ -36,6 +45,7 @@
     nixos-hardware,
     shelm,
     app2unit,
+    sls-steam,
     ...
   } @ inputs: {
     nixosConfigurations = {

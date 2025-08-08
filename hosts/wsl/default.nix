@@ -2,6 +2,7 @@
   imports = [
     ../../modules/general/fish.nix
     ../../modules/general/garbage-collection.nix
+    ../../modules/common
   ];
 
   wsl.enable = true;

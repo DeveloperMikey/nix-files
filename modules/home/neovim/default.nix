@@ -116,6 +116,11 @@
             crates.enable = true;
             lsp.package = ["rust-analyzer"];
           };
+
+          markdown = {
+            enable = true;
+            extensions.markview-nvim.enable = true;
+          };
         };
 
         autocomplete.blink-cmp = {
@@ -198,10 +203,6 @@
 
         notes = {
           todo-comments.enable = true;
-        };
-
-        utility = {
-          diffview-nvim.enable = true;
         };
 
         ui = {

@@ -15,6 +15,7 @@
 in {
   programs = {
     wofi.enable = true;
+    fuzzel.enable = true;
   };
 
   wayland.windowManager.hyprland = {
@@ -28,9 +29,9 @@ in {
       ];
       bind =
         [
-          "$mod, Return, exec, ${inputs.app2unit.packages.${pkgs.system}.default}/bin/app2unit kitty"
+          "$mod, Return, exec, ${inputs.app2unit.packages.${pkgs.system}.default}/bin/app2unit ${pkgs.kitty}/bin/kitty"
           "$mod Shift, Q, killactive"
-          "$mod, Tab, exec, wofi --show drun"
+          "$mod, Tab, exec, ${pkgs.fuzzel}/bin/fuzzel" #wofi --show drun"
           "$mod, V, togglefloating"
           "$mod, F, fullscreen"
           "$mod, J, togglesplit"
@@ -99,6 +100,9 @@ in {
       input = {
         kb_options = "caps:escape";
         repeat_delay = 200;
+        touchpad = {
+          disable_while_typing = false;
+        };
       };
       animations.enabled = false;
       debug = {

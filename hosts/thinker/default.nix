@@ -2,11 +2,13 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ../../modules/common
     ../../modules/limine.nix
     ../../modules/general
     ../../modules/greetd.nix
     ../../modules/hyprland.nix
     ../../modules/gaming
+    ../../modules/flatpak.nix
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;

@@ -172,13 +172,29 @@
         "type": "github"
       }
     },
+    "nix-flatpak": {
+      "locked": {
+        "lastModified": 1739444422,
+        "narHash": "sha256-iAVVHi7X3kWORftY+LVbRiStRnQEob2TULWyjMS6dWg=",
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "rev": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gmodena",
+        "ref": "latest",
+        "repo": "nix-flatpak",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1754229794,
-        "narHash": "sha256-yOl7REX6O/1mh+tpscJPKgjK6nmXSMOB1xhmDNAMUZM=",
+        "lastModified": 1754564048,
+        "narHash": "sha256-dz303vGuzWjzOPOaYkS9xSW+B93PSAJxvBd6CambXVA=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "a872d985392ee5b19d8409bfcc3f106de2070070",
+        "rev": "26ed7a0d4b8741fe1ef1ee6fa64453ca056ce113",
         "type": "github"
       },
       "original": {
@@ -242,11 +258,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1754028485,
-        "narHash": "sha256-IiiXB3BDTi6UqzAZcf2S797hWEPCRZOwyNThJIYhUfk=",
+        "lastModified": 1754292888,
+        "narHash": "sha256-1ziydHSiDuSnaiPzCQh1mRFBsM2d2yRX9I+5OPGEmIE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "59e69648d345d6e8fef86158c555730fa12af9de",
+        "rev": "ce01daebf8489ba97bd1609d185ea276efdeb121",
         "type": "github"
       },
       "original": {
@@ -308,11 +324,13 @@
         "app2unit": "app2unit",
         "disko": "disko",
         "home-manager": "home-manager",
+        "nix-flatpak": "nix-flatpak",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
         "nvf": "nvf",
-        "shelm": "shelm"
+        "shelm": "shelm",
+        "sls-steam": "sls-steam"
       }
     },
     "shelm": {
@@ -325,16 +343,36 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1754314372,
-        "narHash": "sha256-eIw8O3+Jz87VzFEnnWqk34TToVRzPfJ/oxMHBdL01VU=",
+        "lastModified": 1754482923,
+        "narHash": "sha256-g+To+Jxwmrd0U+cY7totuL+WDCmlT/cfLPVecoDllxY=",
         "owner": "DeveloperMikey",
         "repo": "shelm",
-        "rev": "31e2db08f32d7741b2d239a84dc4a6fa47517f49",
+        "rev": "d3a049dd74ecca9fe2ae65a3f33936cdfc405aed",
         "type": "github"
       },
       "original": {
         "owner": "DeveloperMikey",
         "repo": "shelm",
+        "type": "github"
+      }
+    },
+    "sls-steam": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754571429,
+        "narHash": "sha256-Bg5TmhpYSQLfD9c1AZnSOZqzn6N1qkCjD7AO/J4KJ4o=",
+        "owner": "AceSLS",
+        "repo": "SLSsteam",
+        "rev": "bc6d52950ad52f8f59f796eaa2f6ec7d443e9db2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AceSLS",
+        "repo": "SLSsteam",
         "type": "github"
       }
     },

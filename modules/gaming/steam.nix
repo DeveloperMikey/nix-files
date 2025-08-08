@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   programs = {
     steam = {
       enable = true;
@@ -14,6 +18,7 @@
         extraEnv = {
           MANGOHUD = true;
           OBS_VKCAPTURE = true;
+          LD_AUDIT = "${inputs.sls-steam.packages.${pkgs.system}.sls-steam}/SLSsteam.so";
         };
       };
     };
@@ -29,4 +34,6 @@
 
     gamemode.enable = true;
   };
+
+  environment.systemPackages = [inputs.sls-steam.packages.${pkgs.system}.wrapped];
 }

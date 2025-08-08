@@ -7,6 +7,8 @@
     ../../modules/home/kitty.nix
     ../../modules/home/hyprland.nix
     ../../modules/home/gaming.nix
+    ../../modules/home/utilities.nix
+    ../../modules/home/reverse-engineering.nix
   ];
 
   home = {
