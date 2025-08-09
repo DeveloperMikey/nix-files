@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ../../modules/home/neovim
+    ../../modules/home
     ../../modules/home/cli-utils.nix
     ../../modules/home/firefox
     ../../modules/home/theme
@@ -10,6 +10,10 @@
     ../../modules/home/utilities.nix
     ../../modules/home/reverse-engineering.nix
   ];
+
+  my = {
+    editors.neovim.enable = true;
+  };
 
   home = {
     username = "mike";

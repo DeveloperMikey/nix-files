@@ -1,57 +1,61 @@
 {
+  lib,
   config,
   pkgs,
   ...
 }: {
-  my = {
-    neovim.enable = true;
+  options.my.cli.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
   };
 
-  home.packages = with pkgs; [
-    ripgrep
-    fd # find
-    fzf
-    imagemagick
-    ffmpeg
-    jq # json
-    poppler # pdf
-    btop
-    eza
-    btop
-    unrar
-    sl
-  ];
+  config = lib.mkIf config.my.cli.enable {
+    home.packages = with pkgs; [
+      ripgrep
+      fd # find
+      fzf
+      imagemagick
+      ffmpeg
+      jq # json
+      poppler # pdf
+      btop
+      eza
+      btop
+      unrar
+      sl
+    ];
 
-  programs = {
-    git = {
-      enable = true;
-      userName = "Mihkel Mäemees";
-      userEmail = "maemeesmihkel@gmail.com";
-      extraConfig = {
-        pull.rebase = false;
+    programs = {
+      git = {
+        enable = true;
+        userName = "Mihkel Mäemees";
+        userEmail = "maemeesmihkel@gmail.com";
+        extraConfig = {
+          pull.rebase = false;
+        };
       };
-    };
 
-    gh = {
-      enable = true;
-      gitCredentialHelper = {
+      gh = {
+        enable = true;
+        gitCredentialHelper = {
+          enable = true;
+        };
+      };
+
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+        options = ["--cmd z"];
+      };
+
+      yazi = {
         enable = true;
       };
-    };
 
-    zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-      options = ["--cmd z"];
+      imv = {
+        enable = true;
+      };
+      fish.enable = true;
     };
-
-    yazi = {
-      enable = true;
-    };
-
-    imv = {
-      enable = true;
-    };
-    fish.enable = true;
   };
 }

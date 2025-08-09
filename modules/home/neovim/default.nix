@@ -7,12 +7,12 @@
 }: {
   imports = [inputs.nvf.homeManagerModules.default];
 
-  options.my.neovim.enable = lib.mkOption {
+  options.my.editors.neovim.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
   };
 
-  config = lib.mkIf config.my.neovim.enable {
+  config = lib.mkIf config.my.editors.neovim.enable {
     programs.nvf = {
       enable = true;
       settings = {
