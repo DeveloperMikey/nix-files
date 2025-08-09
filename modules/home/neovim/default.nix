@@ -64,7 +64,7 @@
               function()
                 local current = vim.api.nvim_get_current_buf()
                 for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                  if vim.api.nvim_buf_is_loaded(buf) and buf ~= current then
+                  if not vim.api.nvim_buf_get_option(buf, "modified") and buf ~= current then
                     vim.api.nvim_buf_delete(buf, {})
                   end
                 end
@@ -183,6 +183,7 @@
               show_hidden = true;
             };
           };
+          diffview-nvim.enable = true;
         };
 
         #treesitter.context.enable = true;

@@ -3,7 +3,7 @@
     ../../modules/home/neovim
     ../../modules/home/cli-utils.nix
     ../../modules/home/firefox
-    ../../modules/home/theme.nix
+    ../../modules/home/theme
     ../../modules/home/kitty.nix
     ../../modules/home/hyprland.nix
     ../../modules/home/gaming.nix
@@ -20,10 +20,11 @@
     fastfetch
     vesktop
     obs-studio
-    kdePackages.dolphin
     overskride
     networkmanagerapplet
     bitwarden-desktop
+    nautilus
+    sushi
   ];
 
   home.stateVersion = "25.05"; # No changing
