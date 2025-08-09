@@ -2,245 +2,253 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }: {
   imports = [inputs.nvf.homeManagerModules.default];
 
-  programs.nvf = {
-    enable = true;
-    settings = {
-      vim = {
-        viAlias = true;
-        vimAlias = true;
+  options.my.neovim.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+  };
 
-        extraPackages = with pkgs; [
-          kdePackages.qtdeclarative
-        ];
+  config = lib.mkIf config.my.neovim.enable {
+    programs.nvf = {
+      enable = true;
+      settings = {
+        vim = {
+          viAlias = true;
+          vimAlias = true;
 
-        options = {
-          shiftwidth = 4;
-          tabstop = 4;
-          exrc = true;
-        };
+          extraPackages = with pkgs; [
+            kdePackages.qtdeclarative
+          ];
 
-        extraPlugins = {
-          smear-cursor = {
-            package = pkgs.vimPlugins.smear-cursor-nvim;
-            setup = ''
-              require('smear_cursor').enabled = true
+          options = {
+            shiftwidth = 4;
+            tabstop = 4;
+            exrc = true;
+          };
+
+          extraPlugins = {
+            smear-cursor = {
+              package = pkgs.vimPlugins.smear-cursor-nvim;
+              setup = ''
+                require('smear_cursor').enabled = true
+              '';
+            };
+            neoscroll = {
+              package = pkgs.vimPlugins.neoscroll-nvim;
+              setup = ''
+                require('neoscroll').setup({})
+              '';
+            };
+          };
+
+          luaConfigRC = {
+            lspconfig = ''
+              require("lspconfig").qmlls.setup {
+                cmd = {"qmlls"}
+              }
+            '';
+            exrc = ''
+              vim.o.exrc = true
             '';
           };
-          neoscroll = {
-            package = pkgs.vimPlugins.neoscroll-nvim;
-            setup = ''
-              require('neoscroll').setup({})
-            '';
-          };
-        };
 
-        luaConfigRC = {
-          lspconfig = ''
-            require("lspconfig").qmlls.setup {
-              cmd = {"qmlls"}
+          keymaps = [
+            {
+              key = "-";
+              mode = "n";
+              action = "<CMD>Oil<CR>";
+              silent = true;
+              desc = "Open parent directory in Oil";
             }
-          '';
-          exrc = ''
-            vim.o.exrc = true
-          '';
-        };
-
-        keymaps = [
-          {
-            key = "-";
-            mode = "n";
-            action = "<CMD>Oil<CR>";
-            silent = true;
-            desc = "Open parent directory in Oil";
-          }
-          {
-            key = "<leader>ca";
-            mode = "n";
-            action = ''
-              function()
-                local current = vim.api.nvim_get_current_buf()
-                for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                  if not vim.api.nvim_buf_get_option(buf, "modified") and buf ~= current then
-                    vim.api.nvim_buf_delete(buf, {})
+            {
+              key = "<leader>ca";
+              mode = "n";
+              action = ''
+                function()
+                  local current = vim.api.nvim_get_current_buf()
+                  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                    if not vim.api.nvim_buf_get_option(buf, "modified") and buf ~= current then
+                      vim.api.nvim_buf_delete(buf, {})
+                    end
                   end
                 end
-              end
-            '';
-            lua = true;
-            silent = true;
-            desc = "Closes all other buffers";
-          }
-        ];
+              '';
+              lua = true;
+              silent = true;
+              desc = "Closes all other buffers";
+            }
+          ];
 
-        lsp = {
-          enable = true;
-          formatOnSave = true;
-          inlayHints.enable = true;
-          lspconfig = {
+          lsp = {
             enable = true;
-          };
-          trouble.enable = true;
-          lightbulb.enable = true;
-          otter-nvim.enable = true;
-          nvim-docs-view.enable = true;
-        };
-
-        theme = {
-          enable = true;
-          name = "gruvbox";
-          style = "dark";
-        };
-
-        languages = {
-          enableFormat = true;
-          enableExtraDiagnostics = true;
-
-          nix = {
-            enable = true;
-            lsp.server = "nil";
-            treesitter.enable = true;
-          };
-
-          lua = {
-            enable = true;
-            lsp.lazydev.enable = true;
-            treesitter.enable = true;
-          };
-
-          rust = {
-            enable = true;
-            crates.enable = true;
-            lsp.package = ["rust-analyzer"];
-          };
-
-          markdown = {
-            enable = true;
-            extensions.markview-nvim.enable = true;
-          };
-        };
-
-        autocomplete.blink-cmp = {
-          enable = true;
-          friendly-snippets.enable = true;
-          #mappings.confirm = "<C-CR>";
-        };
-
-        debugger = {
-          nvim-dap = {
-            enable = true;
-            ui.enable = true;
-          };
-        };
-
-        visuals = {
-          nvim-web-devicons.enable = true;
-          nvim-cursorline.enable = true;
-          cinnamon-nvim.enable = true;
-          fidget-nvim.enable = true;
-
-          highlight-undo.enable = true;
-          indent-blankline.enable = true;
-        };
-
-        autopairs.nvim-autopairs.enable = true;
-
-        statusline = {
-          lualine = {
-            enable = true;
-            theme = "gruvbox";
-          };
-        };
-
-        snippets.luasnip.enable = true;
-
-        tabline = {
-          nvimBufferline = {
-            enable = true;
-            mappings = {
-              closeCurrent = "<leader>cc";
-              cycleNext = "<leader>ll";
-              cyclePrevious = "<leader>hh";
-              moveNext = "<leader>kk";
-              movePrevious = "<leader>jj";
+            formatOnSave = true;
+            inlayHints.enable = true;
+            lspconfig = {
+              enable = true;
             };
-            setupOpts = {
-              options = {
-                always_show_bufferline = false;
-                name_formatter = lib.generators.mkLuaInline (builtins.readFile ./bufferline_name_formatter.lua);
+            trouble.enable = true;
+            lightbulb.enable = true;
+            otter-nvim.enable = true;
+            nvim-docs-view.enable = true;
+          };
+
+          theme = {
+            enable = true;
+            name = "gruvbox";
+            style = "dark";
+          };
+
+          languages = {
+            enableFormat = true;
+            enableExtraDiagnostics = true;
+
+            nix = {
+              enable = true;
+              lsp.server = "nil";
+              treesitter.enable = true;
+            };
+
+            lua = {
+              enable = true;
+              lsp.lazydev.enable = true;
+              treesitter.enable = true;
+            };
+
+            rust = {
+              enable = true;
+              crates.enable = true;
+              lsp.package = ["rust-analyzer"];
+            };
+
+            markdown = {
+              enable = true;
+              extensions.markview-nvim.enable = true;
+            };
+          };
+
+          autocomplete.blink-cmp = {
+            enable = true;
+            friendly-snippets.enable = true;
+            #mappings.confirm = "<C-CR>";
+          };
+
+          debugger = {
+            nvim-dap = {
+              enable = true;
+              ui.enable = true;
+            };
+          };
+
+          visuals = {
+            nvim-web-devicons.enable = true;
+            nvim-cursorline.enable = true;
+            cinnamon-nvim.enable = true;
+            fidget-nvim.enable = true;
+
+            highlight-undo.enable = true;
+            indent-blankline.enable = true;
+          };
+
+          autopairs.nvim-autopairs.enable = true;
+
+          statusline = {
+            lualine = {
+              enable = true;
+              theme = "gruvbox";
+            };
+          };
+
+          snippets.luasnip.enable = true;
+
+          tabline = {
+            nvimBufferline = {
+              enable = true;
+              mappings = {
+                closeCurrent = "<leader>cc";
+                cycleNext = "<leader>ll";
+                cyclePrevious = "<leader>hh";
+                moveNext = "<leader>kk";
+                movePrevious = "<leader>jj";
+              };
+              setupOpts = {
+                options = {
+                  always_show_bufferline = false;
+                  name_formatter = lib.generators.mkLuaInline (builtins.readFile ./bufferline_name_formatter.lua);
+                };
               };
             };
           };
-        };
 
-        utility = {
-          oil-nvim.enable = true;
-          oil-nvim.setupOpts = {
-            view_options = {
-              show_hidden = true;
+          utility = {
+            oil-nvim.enable = true;
+            oil-nvim.setupOpts = {
+              view_options = {
+                show_hidden = true;
+              };
+            };
+            diffview-nvim.enable = true;
+          };
+
+          #treesitter.context.enable = true;
+          treesitter = {
+            enable = true;
+            indent.enable = false;
+            grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              qmljs
+            ];
+          };
+
+          git = {
+            enable = true;
+            gitsigns.enable = true;
+            gitsigns.codeActions.enable = false;
+            neogit.enable = true;
+          };
+
+          notes = {
+            todo-comments.enable = true;
+          };
+
+          ui = {
+            borders.enable = true;
+            noice.enable = true;
+            colorizer.enable = true;
+            illuminate.enable = true;
+            breadcrumbs = {
+              enable = true;
             };
           };
-          diffview-nvim.enable = true;
-        };
 
-        #treesitter.context.enable = true;
-        treesitter = {
-          enable = true;
-          indent.enable = false;
-          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-            qmljs
-          ];
-        };
+          session = {
+            nvim-session-manager = {
+              enable = true;
+              setupOpts.autoload_mode = "GitSession";
+            };
+          };
 
-        git = {
-          enable = true;
-          gitsigns.enable = true;
-          gitsigns.codeActions.enable = false;
-          neogit.enable = true;
-        };
+          binds = {
+            whichKey.enable = true;
+            cheatsheet.enable = true;
+            hardtime-nvim.enable = true;
+          };
 
-        notes = {
-          todo-comments.enable = true;
-        };
-
-        ui = {
-          borders.enable = true;
-          noice.enable = true;
-          colorizer.enable = true;
-          illuminate.enable = true;
-          breadcrumbs = {
+          diagnostics = {
             enable = true;
+            config = {
+              virtual_text = true;
+            };
+            nvim-lint.enable = true;
           };
-        };
 
-        session = {
-          nvim-session-manager = {
-            enable = true;
-            setupOpts.autoload_mode = "GitSession";
-          };
+          notify.nvim-notify.enable = true;
+          projects.project-nvim.enable = true;
+          dashboard.alpha.enable = true;
+          telescope.enable = true;
         };
-
-        binds = {
-          whichKey.enable = true;
-          cheatsheet.enable = true;
-          hardtime-nvim.enable = true;
-        };
-
-        diagnostics = {
-          enable = true;
-          config = {
-            virtual_text = true;
-          };
-          nvim-lint.enable = true;
-        };
-
-        notify.nvim-notify.enable = true;
-        projects.project-nvim.enable = true;
-        dashboard.alpha.enable = true;
-        telescope.enable = true;
       };
     };
   };

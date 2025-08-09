@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  my = {
+    neovim.enable = true;
+  };
+
   home.packages = with pkgs; [
     ripgrep
     fd # find
