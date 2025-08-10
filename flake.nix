@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    catppuccin.url = "github:catppuccin/nix/release-25.05";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     nixos-wsl = {
@@ -52,7 +51,6 @@
     shelm,
     app2unit,
     sls-steam,
-    catppuccin,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -75,6 +73,7 @@
         ];
       };
       thinker = nixpkgs.lib.nixosSystem {
+        #sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake 'github:DeveloperMikey/nix-files#laptop' --disk main /dev/nvme0n1
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [

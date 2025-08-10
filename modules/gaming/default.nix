@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   imports = [
     ./steam.nix
+    ./roblox.nix
+    ./epicgames.nix
+    ./lutris.nix
   ];
   /*
   programs.gamescope = {

@@ -234,6 +234,9 @@
             whichKey.enable = true;
             cheatsheet.enable = true;
             hardtime-nvim.enable = true;
+            hardtime-nvim.setupOpts = {
+              max_count = 7;
+            };
           };
 
           diagnostics = {

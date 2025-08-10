@@ -25,6 +25,16 @@
     };
   };
 
+  my = {
+    gaming = {
+      steam.enable = true;
+      steam.sls = true;
+      steam.online-fix = true;
+      roblox.enable = true;
+      lutris.enable = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     wget
   ];

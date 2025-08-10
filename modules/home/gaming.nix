@@ -5,7 +5,7 @@
     PlayNotOwnedGames = true;
     AdditionalApps = [
       3769130
-      1154030
+      2512930
     ];
   };
 

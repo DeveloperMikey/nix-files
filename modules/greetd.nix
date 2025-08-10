@@ -1,14 +1,16 @@
 {pkgs, ...}: let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+
+  steam-deck = pkgs.callPackage ./gaming/steam-big-picture.nix {};
 in {
   services.greetd = {
     enable = true;
     settings.default_session = {
       user = "greeter";
-      command = "${tuigreet} --time --remember --remember-session --sessions ${pkgs.hyprland}/share/wayland-sessions";
+      command = "${tuigreet} --time --remember --remember-session --sessions ${pkgs.hyprland}/share/wayland-sessions:${steam-deck}/share/wayland-sessions";
     };
   };
-  /*
+
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
@@ -18,5 +20,4 @@ in {
     TTYVHangup = true;
     TTYVTDisallocate = true;
   };
-  */
 }

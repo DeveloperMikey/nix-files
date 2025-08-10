@@ -3,6 +3,8 @@
   inputs,
   ...
 }: let
+  app2unit = "${inputs.app2unit.packages.${pkgs.system}.default}/bin/app2unit";
+
   updateMicLed = pkgs.writeShellScript "update-mic-led" ''
     micStatus=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
     brightnessctl -d platform::micmute set "$micStatus"
@@ -25,13 +27,15 @@ in {
 
       monitor = ",highres,auto,1,bitdepth,10";
       exec-once = [
-        "${(toString inputs.shelm.packages.x86_64-linux.default)}/bin/shelm"
+        "${app2unit} ${(toString inputs.shelm.packages.x86_64-linux.default)}/bin/shelm"
+        "${app2unit} ${pkgs.bitwarden}/bin/bitwarden"
+        "${pkgs.networkmanagerapplet}/bin/nm-applet"
       ];
       bind =
         [
-          "$mod, Return, exec, ${inputs.app2unit.packages.${pkgs.system}.default}/bin/app2unit ${pkgs.kitty}/bin/kitty"
+          "$mod, Return, exec, ${app2unit} ${pkgs.kitty}/bin/kitty"
           "$mod Shift, Q, killactive"
-          "$mod, Tab, exec, ${pkgs.fuzzel}/bin/fuzzel" #wofi --show drun"
+          "$mod, Tab, exec, ${pkgs.fuzzel}/bin/fuzzel --launch-prefix='${app2unit} --fuzzel-compat --'" #wofi --show drun"
           "$mod, V, togglefloating"
           "$mod, F, fullscreen"
           "$mod, J, togglesplit"
@@ -48,6 +52,8 @@ in {
 
           ", print, exec, grim -g \"$(slurp)\" - | wl-copy"
           "$mod Shift, Z, exec, bash -c 'v=$(hyprctl -j getoption cursor:zoom_factor | jq \".float\" | cut -d\".\" -f1); [ \"$v\" = \"1\" ] && hyprctl -q keyword cursor:zoom_factor 3 || hyprctl -q keyword cursor:zoom_factor 1'"
+
+          "$mod, B, togglespecialworkspace, bitwarden"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -73,6 +79,9 @@ in {
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+      windowrule = [
+        "workspace special:bitwarden silent, class:Bitwarden"
       ];
       misc = {
         disable_hyprland_logo = true;

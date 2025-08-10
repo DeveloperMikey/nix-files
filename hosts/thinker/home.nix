@@ -13,6 +13,7 @@
 
   my = {
     editors.neovim.enable = true;
+    gaming.minecraft.enable = true;
   };
 
   home = {
@@ -29,6 +30,7 @@
     bitwarden-desktop
     nautilus
     sushi
+    qbittorrent-enhanced
   ];
 
   home.stateVersion = "25.05"; # No changing
