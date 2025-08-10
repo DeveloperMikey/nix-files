@@ -28,7 +28,6 @@
     overskride
     networkmanagerapplet
     bitwarden-desktop
-    nautilus
     sushi
     qbittorrent-enhanced
   ];

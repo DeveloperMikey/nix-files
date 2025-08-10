@@ -27,9 +27,11 @@
 
   my = {
     gaming = {
-      steam.enable = true;
-      steam.sls = true;
-      steam.online-fix = true;
+      steam = {
+        enable = true;
+        sls = true;
+        online-fix = true;
+      };
       roblox.enable = true;
       lutris.enable = true;
     };
@@ -37,7 +39,10 @@
 
   environment.systemPackages = with pkgs; [
     wget
+    nautilus
   ];
+
+  services.gvfs.enable = true; #naut trash
 
   zramSwap = {enable = true;};
 
