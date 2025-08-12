@@ -30,6 +30,7 @@
     bitwarden-desktop
     sushi
     qbittorrent-enhanced
+    krita
   ];
 
   home.stateVersion = "25.05"; # No changing

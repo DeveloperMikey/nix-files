@@ -126,10 +126,10 @@ in {
       settings = {
         preload = [
           (toString
-            ../../wallpapers/E14-Gen-4)
+            ../../wallpapers/E14-Gen-4.png)
         ];
         wallpaper = [
-          "eDP-1,${toString ../../wallpapers/E14-Gen-4}"
+          "eDP-1,${toString ../../wallpapers/E14-Gen-4.png}"
         ];
       };
     };
