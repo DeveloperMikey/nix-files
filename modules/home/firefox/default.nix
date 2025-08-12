@@ -36,12 +36,26 @@ in {
       '';
       search = {
         force = true;
-        default = "Startpage";
+        default = "Brave";
         engines = {
+          "Brave" = {
+            urls = [
+              {
+                template = "https://search.brave.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            definedAliases = ["@b"];
+            icon = "https://brave.com/favicon.ico";
+          };
           "Startpage" = {
             urls = [{template = "https://www.startpage.com/rvd/search?query={searchTerms}&language=auto";}];
-            iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/mobile/android-icon-192x192.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
+            icon = "https://www.startpage.com/sp/cdn/favicons/mobile/android-icon-192x192.png";
             definedAliases = ["@s"];
           };
           "Nix Packages" = {
