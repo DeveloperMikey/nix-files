@@ -31,6 +31,7 @@
     sushi
     qbittorrent-enhanced
     krita
+    runelite
   ];
 
   home.stateVersion = "25.05"; # No changing

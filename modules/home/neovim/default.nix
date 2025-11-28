@@ -13,6 +13,8 @@
   };
 
   config = lib.mkIf config.my.editors.neovim.enable {
+    home.packages = [pkgs.slint-lsp];
+
     programs.nvf = {
       enable = true;
       settings = {
@@ -50,6 +52,10 @@
               require("lspconfig").qmlls.setup {
                 cmd = {"qmlls"}
               }
+
+              require("lspconfig").slint_lsp.setup {}
+
+              vim.cmd [[ autocmd BufRead,BufNewFile *.slint set filetype=slint ]]
             '';
             exrc = ''
               vim.o.exrc = true
@@ -199,6 +205,7 @@
             indent.enable = false;
             grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
               qmljs
+              slint
             ];
           };
 

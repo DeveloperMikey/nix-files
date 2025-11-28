@@ -18,6 +18,8 @@ in {
   programs = {
     wofi.enable = true;
     fuzzel.enable = true;
+
+    hyprlock.enable = true;
   };
 
   wayland.windowManager.hyprland = {
@@ -49,6 +51,8 @@ in {
           "$mod Shift, right, movewindow, r"
           "$mod Shift, up, movewindow, u"
           "$mod Shift, down, movewindow, d"
+
+          "$mod, L, exec, hyprlock"
 
           ", print, exec, grim -g \"$(slurp)\" - | wl-copy"
           "$mod Shift, Z, exec, bash -c 'v=$(hyprctl -j getoption cursor:zoom_factor | jq \".float\" | cut -d\".\" -f1); [ \"$v\" = \"1\" ] && hyprctl -q keyword cursor:zoom_factor 3 || hyprctl -q keyword cursor:zoom_factor 1'"
@@ -87,7 +91,6 @@ in {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         vfr = true;
-        vrr = 1;
       };
       general = {
         gaps_in = 2;
@@ -107,11 +110,12 @@ in {
       };
       xwayland.force_zero_scaling = true;
       input = {
-        kb_options = "caps:escape";
+        kb_options = ["caps:escape" "grp:win_space_toggle"];
         repeat_delay = 200;
         touchpad = {
           disable_while_typing = false;
         };
+        kb_layout = "us,ee";
       };
       animations.enabled = false;
       debug = {
@@ -124,12 +128,13 @@ in {
     hyprpaper = {
       enable = true;
       settings = {
+        ipc = true;
         preload = [
           (toString
             ../../wallpapers/E14-Gen-4.png)
         ];
         wallpaper = [
-          "eDP-1,${toString ../../wallpapers/E14-Gen-4.png}"
+          ", ${toString ../../wallpapers/E14-Gen-4.png}"
         ];
       };
     };
@@ -170,6 +175,4 @@ in {
     wl-clipboard
     wl-clip-persist
   ];
-
-  xdg.portal.enable = true;
 }
