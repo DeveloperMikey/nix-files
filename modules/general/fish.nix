@@ -7,7 +7,7 @@
     enable = true;
     shellAliases = {
       fetch = "fastfetch";
-      rebuild = "git -C /home/mike/.nixos add .; sudo nixos-rebuild switch --flake /home/mike/.nixos#${config.networking.hostName}";
+      rebuild = "git -C /home/mike/.nixos add .; sudo nixos-rebuild switch --flake /home/mike/.nixos#${config.networking.hostName} --option extra-substituters https://install.determinate.systems --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=";
       backupFirefox = "cp ~/.mozilla/firefox/mike/prefs.js ~/.mozilla/firefox/mike/prefs.js.bak";
       diffFirefox = "nvim -d ~/.mozilla/firefox/mike/prefs.js.bak ~/.mozilla/firefox/mike/prefs.js";
     };

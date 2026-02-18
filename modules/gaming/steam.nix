@@ -40,7 +40,7 @@
             }
             // lib.optionalAttrs
             config.my.gaming.steam.sls {
-              LD_AUDIT = "${inputs.sls-steam.packages.${pkgs.system}.sls-steam}/SLSsteam.so";
+              LD_AUDIT = "${inputs.sls-steam.packages.${pkgs.system}.sls-steam}/library-inject.so:${inputs.sls-steam.packages.${pkgs.system}.sls-steam}/SLSsteam.so";
             }
             // lib.optionalAttrs config.my.gaming.steam.online-fix {
               WINEDLLOVERRIDES = "OnlineFix64=n;SteamOverlay64=n;winmm=n,b;dnet=n;steam_api64=n;winhttp=n,b";
@@ -59,6 +59,7 @@
     };
     environment.systemPackages = with pkgs; [
       protonup
+      inputs.sls-steam.packages.${pkgs.system}.wrapped
     ];
   };
 }

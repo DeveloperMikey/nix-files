@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ../../modules/home
     ../../modules/home/cli-utils.nix
@@ -32,6 +36,10 @@
     qbittorrent-enhanced
     krita
     runelite
+    bolt-launcher
+    termius
+    filezilla
+    vscode
   ];
 
   home.stateVersion = "25.05"; # No changing

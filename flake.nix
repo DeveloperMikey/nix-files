@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/release-25.05";
@@ -36,6 +37,7 @@
 
     sls-steam = {
       url = "github:AceSLS/SLSsteam";
+      #url = "path:/home/mike/Projects/SLSsteam";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -43,6 +45,7 @@
   outputs = {
     self,
     nixpkgs,
+    determinate,
     disko,
     nixos-wsl,
     home-manager,
@@ -60,6 +63,7 @@
         modules = [
           nixos-wsl.nixosModules.default
           home-manager.nixosModules.home-manager
+          determinate.nixosModules.default
           {
             home-manager = {
               useGlobalPkgs = true;
